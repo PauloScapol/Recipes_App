@@ -16,6 +16,6 @@ function App() {
       </object>
     </div>
   );
-}asdasd
+}
 
 export default App;
