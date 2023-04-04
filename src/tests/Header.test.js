@@ -5,7 +5,6 @@ import renderPath from './helpers/renderPath';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
 import Profile from '../pages/Profile';
-import Header from '../components/Header';
 // import DoneRecipes from '../pages/DoneRecipes';
 // import FavoriteRecipes from '../pages/FavoriteRecipes';
 
