@@ -11,6 +11,7 @@ export const searchIngredient = (searchInput) => async (dispatch) => {
   const ingredientResponse = await ingredientApi(searchInput);
   dispatch(actionSearch(ingredientResponse));
 };
+//
 
 export const searchName = (searchInput) => async (dispatch) => {
   const nameResponse = await nameApi(searchInput);
