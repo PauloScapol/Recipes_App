@@ -48,6 +48,7 @@ export default function Login() {
     <form
       onSubmit={ (e) => {
         e.preventDefault();
+        saveOnLocalStorage();
       } }
     >
       <label>
@@ -74,7 +75,6 @@ export default function Login() {
           id="btn-enter"
           data-testid="login-submit-btn"
           disabled={ formData.isDisabled }
-          onClick={ () => saveOnLocalStorage() }
         >
           ENTER
 
