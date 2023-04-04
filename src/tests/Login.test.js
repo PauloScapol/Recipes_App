@@ -9,7 +9,7 @@ describe('Testa aplicação', () => {
   renderWithRouter(<App />);
   const emailInput = screen.getByTestId('email-input');
   const passwordInput = screen.getByTestId('password-input');
-  const submit = screen.getByText('ENTER');
+  const submit = screen.getByTestId('login-submit-btn');
   it('Testa se os inputs estão na tela.', () => {
     renderWithRouter(<App />);
     expect(emailInput).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('Testa aplicação', () => {
     const { history } = renderWithRouter(<App />);
     const { pathname } = history.location;
     userEvent.type(emailInput, 'test@test.com');
-    userEvent.type(passwordInput, '1234567');
+    userEvent.type(passwordInput, '12345678');
     userEvent.click(submit);
     console.log(pathname);
     expect(pathname).toBe('/meals');

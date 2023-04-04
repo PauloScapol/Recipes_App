@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -6,6 +7,7 @@ export default function Login() {
     password: '',
     isDisabled: true,
   });
+  const history = useHistory();
 
   const validateEmail = () => {
     const magicNumber = 7;
@@ -32,9 +34,7 @@ export default function Login() {
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }), () => {
-      validateEmail();
-    });
+    }));
   };
 
   const saveOnLocalStorage = () => {
@@ -42,9 +42,14 @@ export default function Login() {
       email: formData.email,
     };
     localStorage.setItem('user', JSON.stringify(dataUser));
+    history.push('/meals');
   };
   return (
-    <form>
+    <form
+      onSubmit={ (e) => {
+        e.preventDefault();
+      } }
+    >
       <label>
         <input
           name="email"
