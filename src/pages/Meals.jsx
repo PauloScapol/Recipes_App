@@ -19,18 +19,22 @@ export default function Meals() {
     getMealsCategories();
   }, []);
 
-  async function filterMealsByCategory(categoryName) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`);
-    const data = await response.json();
-    setMeals(data.meals.slice(0, maxMeals));
-    setSelectedCategory(categoryName); // atualiza a categoria selecionada
-  }
-
   async function clearFilter() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const data = await response.json();
     setMeals(data.meals.slice(0, maxMeals));
     setSelectedCategory(null); // remove a categoria selecionada
+  }
+
+  async function filterMealsByCategory(categoryName) {
+    if (categoryName === selectedCategory) {
+      clearFilter(); // limpa o filtro e exibe todas as receitas
+    } else {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`);
+      const data = await response.json();
+      setMeals(data.meals.slice(0, maxMeals));
+      setSelectedCategory(categoryName); // atualiza a categoria selecionada
+    }
   }
 
   useEffect(() => {

@@ -19,18 +19,23 @@ export default function Drinks() {
     getDrinksCategories();
   }, []);
 
-  async function filterDrinksByCategory(categoryName) {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`);
-    const data = await response.json();
-    setDrinks(data.drinks.slice(0, maxDrinks));
-    setSelectedCategory(categoryName); // atualiza a categoria selecionada
-  }
-
   async function clearFilter() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const data = await response.json();
     setDrinks(data.drinks.slice(0, maxDrinks));
     setSelectedCategory(null); // remove a categoria selecionada
+  }
+
+  async function filterDrinksByCategory(categoryName) {
+    if (categoryName === selectedCategory) { // se o filtro for selecionado novamente
+      clearFilter(); // limpa o filtro e exibe todas as receitas
+    } else {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`);
+      const data = await response.json();
+
+      setDrinks(data.drinks.slice(0, maxDrinks));
+      setSelectedCategory(categoryName); // atualiza a categoria selecionada
+    }
   }
 
   useEffect(() => {
