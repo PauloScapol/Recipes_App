@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -22,6 +24,7 @@ export default function Header({ title, showSearchIcon }) {
 
   return (
     <section>
+
       {showSearchIcon && (
         <button type="button" onClick={ () => handleClick() }>
           <img
@@ -39,10 +42,14 @@ export default function Header({ title, showSearchIcon }) {
           alt="profile icon"
         />
       </button>
+
       {searchFood && (
         <input type="text" placeholder="Search" data-testid="search-input" />
       )}
       <h1 data-testid="page-title">{title}</h1>
+
+      <SearchBar />
+
     </section>
   );
 }
