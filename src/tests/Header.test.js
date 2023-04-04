@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
+import renderPath from './helpers/renderPath';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
 import Profile from '../pages/Profile';
@@ -11,6 +12,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   const searchTopBtn = 'search-top-btn';
   const profileTopBtn = 'profile-top-btn';
   const pageTitle = 'page-title';
+  const inputSearch = 'search-input';
 
   test('Os componentes estão na tela da página Meals', () => {
     render(<Meals />);
@@ -46,15 +48,28 @@ describe('Teste de funcionalidade do componente Header', () => {
     expect(pageTl).toBeInTheDocument();
   });
 
-  // test('Ao clicar no botão ProfileBtn, é redirecionado para a página Profile', () => {
-  //   render(<Meals />);
+  test('Ao clicar no botão ProfileBtn, é redirecionado para a página Profile', () => {
+    renderPath('/meals');
 
-  //   const profileBtn = screen.getByTestId(profileTopBtn);
-  //   fireEvent.click(profileBtn);
-  //   // userEvent.click(profileBtn);
+    const profileBtn = screen.getByTestId(profileTopBtn);
+    userEvent.click(profileBtn);
 
-  //   const profileTitle = screen.getByText('Profile');
+    const profileTitle = screen.getByText('Profile');
 
-  //   expect(profileTitle).toBeInTheDocument();
-  // });
+    expect(profileTitle).toBeInTheDocument();
+  });
+
+  test('Aparece um input de pesquisa ao clicar no botão search e desaparece se clicar novamente', () => {
+    renderPath('/meals');
+
+    const searchBtn = screen.getByTestId(searchTopBtn);
+    expect(searchBtn).toBeInTheDocument();
+    userEvent.click(searchBtn);
+
+    const searchChange = screen.getByTestId(inputSearch);
+    expect(searchChange).toBeInTheDocument();
+
+    userEvent.click(searchBtn);
+    expect(searchChange).not.toBeInTheDocument();
+  });
 });
