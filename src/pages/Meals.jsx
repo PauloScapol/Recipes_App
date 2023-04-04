@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -70,22 +71,18 @@ export default function Meals() {
       ))}
       <div>
         {meals.map((meal, index) => (
-          <div
-            key={ meal.idMeal }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <img
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-            <p
-              data-testid={ `${index}-card-name` }
-            >
-              { meal.strMeal }
-            </p>
-          </div>
+          <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+            </div>
+          </Link>
         ))}
+
       </div>
       <Footer />
     </>
