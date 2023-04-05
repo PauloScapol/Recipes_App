@@ -41,7 +41,7 @@ export default function Login() {
     const dataUser = {
       email: formData.email,
     };
-    localStorage.setItem('user', JSON.stringify(dataUser.email));
+    localStorage.setItem('user', JSON.stringify(dataUser));
     history.push('/meals');
   };
   return (
