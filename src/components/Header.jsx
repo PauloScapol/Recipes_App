@@ -8,6 +8,8 @@ import searchIcon from '../images/searchIcon.svg';
 
 export default function Header({ title, showSearchIcon }) {
   const [searchFood, setSearchFood] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+
   const history = useHistory();
 
   const navigateToProfile = () => {
@@ -44,11 +46,18 @@ export default function Header({ title, showSearchIcon }) {
       </button>
 
       {searchFood && (
-        <input type="text" placeholder="Search" data-testid="search-input" />
+        <form>
+          <input
+            type="text"
+            placeholder="Search"
+            data-testid="search-input"
+            value={ searchInput }
+            onChange={ ({ target }) => setSearchInput(target.value) }
+          />
+          <SearchBar inputSearch={ searchInput } />
+        </form>
       )}
       <h1 data-testid="page-title">{title}</h1>
-
-      <SearchBar />
 
     </section>
   );
