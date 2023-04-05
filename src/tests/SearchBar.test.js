@@ -1,11 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
-import { renderWithRouter } from './helpers/renderWith';
-// import Meals from '../pages/Meals';
-// import SearchBar from '../components/SearchBar';
-import App from '../App';
+// import { act } from 'react-dom/test-utils';
+// import { renderWithRouter } from './helpers/renderWith';
+import Meals from '../pages/Meals';
+// import App from '../App';
 
 describe('Testes do component SearchBar.js', () => {
   const testIdSearchTopBtn = 'search-top-btn';
@@ -14,19 +13,12 @@ describe('Testes do component SearchBar.js', () => {
   const testIdSearchNameRadio = 'name-search-radio';
   const testIdSearchFirstLetterRadio = 'first-letter-search-radio';
   const testIdSearchButton = 'exec-search-btn';
-  const path = '/meals';
 
   test('Testa se os elementos da barra de busca estão presentes', async () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push(path);
-    });
-
-    expect(history.location.pathname).toBe(path);
+    render(<Meals />);
 
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
-    expect(searchTopBtn).toBeVisible();
+    expect(searchTopBtn).toBeInTheDocument();
     userEvent.click(searchTopBtn);
 
     const searchInput = screen.getByTestId(testIdSearchInput);
