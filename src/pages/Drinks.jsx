@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/Drinks.css';
 
 export default function Drinks() {
   const [categories, setCategories] = useState([]);
@@ -53,27 +54,29 @@ export default function Drinks() {
   return (
     <>
       <Header title="Drinks" showSearchIcon />
-      <button
-        key="All"
-        data-testid="All-category-filter"
-        onClick={ clearFilter } // adiciona a ação de limpar o filtro
-      >
-        All
-      </button>
-      {categories.map((category) => (
+      <div className="category-btns">
         <button
-          key={ category.strCategory }
-          data-testid={ `${category.strCategory}-category-filter` }
-          onClick={ () => filterDrinksByCategory(category.strCategory) }
-          className={ category.strCategory === selectedCategory ? 'selected' : '' } // adiciona a classe "selected" para a categoria selecionada
+          key="All"
+          data-testid="All-category-filter"
+          onClick={ clearFilter } // adiciona a ação de limpar o filtro
         >
-          {category.strCategory}
+          All
         </button>
-      ))}
-      <div>
+        {categories.map((category) => (
+          <button
+            key={ category.strCategory }
+            data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ () => filterDrinksByCategory(category.strCategory) }
+            className={ category.strCategory === selectedCategory ? 'selected' : '' } // adiciona a classe "selected" para a categoria selecionada
+          >
+            {category.strCategory}
+          </button>
+        ))}
+      </div>
+      <div className="recipe-cards">
         {drinks.map((drink, index) => (
           <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="individual-recipe" data-testid={ `${index}-recipe-card` }>
               <img
                 src={ drink.strDrinkThumb }
                 alt={ drink.strDrink }
