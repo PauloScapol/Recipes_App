@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import '../styles/DrinkInProgress.css';
 
-function DrinkInProgress({ setRecipe }) {
+export default function DrinkInProgress({ setRecipe }) {
   const [drink, setDrink] = useState({});
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
   const { id } = useParams();
   const slice13 = 13;
 
@@ -18,6 +20,17 @@ function DrinkInProgress({ setRecipe }) {
     fetchDrink();
   }, [id, setRecipe]);
 
+  function handleCheckboxChange(e) {
+    const { name } = e.target;
+
+    if (checkedIngredients.includes(name)) {
+      setCheckedIngredients(checkedIngredients
+        .filter((ingredient) => ingredient !== name));
+    } else {
+      setCheckedIngredients([...checkedIngredients, name]);
+    }
+  }
+
   return (
     <div>
       <img src={ drink.strDrinkThumb } alt="Recipe" data-testid="recipe-photo" />
@@ -27,8 +40,17 @@ function DrinkInProgress({ setRecipe }) {
         {Object.entries(drink)
           .filter(([key]) => key.startsWith('strIngredient') && drink[key])
           .map(([key, value], index) => (
-            <label key={ key } data-testid={ `${index}-ingredient-step` }>
-              <input type="checkbox" />
+            <label
+              className={ checkedIngredients.includes(value) ? 'checked-ingredient' : '' }
+              key={ key }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                name={ value }
+                checked={ checkedIngredients.includes(value) }
+                onChange={ handleCheckboxChange }
+              />
               {value}
               -
               {drink[`strMeasure${key.slice(slice13)}`]}
@@ -46,5 +68,3 @@ function DrinkInProgress({ setRecipe }) {
 DrinkInProgress.propTypes = {
   setRecipe: PropTypes.func.isRequired,
 };
-
-export default DrinkInProgress;
