@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Footer from './Footer';
+import Header from './Header';
 import '../styles/Meals.css';
 
 export default function Meals() {
