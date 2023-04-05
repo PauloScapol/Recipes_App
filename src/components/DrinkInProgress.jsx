@@ -26,12 +26,13 @@ function DrinkInProgress({ setRecipe }) {
       <ul>
         {Object.entries(drink)
           .filter(([key]) => key.startsWith('strIngredient') && drink[key])
-          .map(([key, value]) => (
-            <li key={ key }>
+          .map(([key, value], index) => (
+            <label key={ key } data-testid={ `${index}-ingredient-step` }>
+              <input type="checkbox" />
               {value}
               -
               {drink[`strMeasure${key.slice(slice13)}`]}
-            </li>
+            </label>
           ))}
       </ul>
       <p data-testid="instructions">{drink.strInstructions}</p>
