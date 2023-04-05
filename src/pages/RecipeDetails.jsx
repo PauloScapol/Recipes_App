@@ -7,7 +7,6 @@ export default function RecipeDetails({ match: { params } }) {
   const { id } = params;
 
   useEffect(() => {
-    console.log(url);
     async function getMeal() {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const data = await response.json();
