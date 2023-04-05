@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../styles/Meals.css';
 
 export default function Meals() {
   const [categories, setCategories] = useState([]);
@@ -52,27 +53,29 @@ export default function Meals() {
   return (
     <>
       <Header title="Meals" showSearchIcon />
-      <button
-        key="All"
-        data-testid="All-category-filter"
-        onClick={ clearFilter } // adiciona a ação de limpar o filtro
-      >
-        All
-      </button>
-      {categories.map((category) => (
+      <div className="category-btns">
         <button
-          key={ category.strCategory }
-          data-testid={ `${category.strCategory}-category-filter` }
-          onClick={ () => filterMealsByCategory(category.strCategory) }
-          className={ category.strCategory === selectedCategory ? 'selected' : '' } // adiciona a classe "selected" para a categoria selecionada
+          key="All"
+          data-testid="All-category-filter"
+          onClick={ clearFilter } // adiciona a ação de limpar o filtro
         >
-          {category.strCategory}
+          All
         </button>
-      ))}
-      <div>
+        {categories.map((category) => (
+          <button
+            key={ category.strCategory }
+            data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ () => filterMealsByCategory(category.strCategory) }
+            className={ category.strCategory === selectedCategory ? 'selected' : '' } // adiciona a classe "selected" para a categoria selecionada
+          >
+            {category.strCategory}
+          </button>
+        ))}
+      </div>
+      <div className="recipe-cards">
         {meals.map((meal, index) => (
           <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="individual-recipe" data-testid={ `${index}-recipe-card` }>
               <img
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
@@ -82,7 +85,6 @@ export default function Meals() {
             </div>
           </Link>
         ))}
-
       </div>
       <Footer />
     </>
