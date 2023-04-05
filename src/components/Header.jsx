@@ -54,7 +54,7 @@ export default function Header({ title, showSearchIcon }) {
             value={ searchInput }
             onChange={ ({ target }) => setSearchInput(target.value) }
           />
-          <SearchBar inputSearch={ searchInput } />
+          <SearchBar inputSearch={ searchInput } title={ title } />
         </form>
       )}
       <h1 data-testid="page-title">{title}</h1>

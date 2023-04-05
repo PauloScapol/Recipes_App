@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { searchName, searchIngredient, searchFirstLetter } from '../redux/actions';
+import {
+  searchName,
+  searchIngredient,
+  searchFirstLetter,
+  searchDrinkIngredient,
+  searchDrinkName,
+  searchDrinkFirstLetter,
+} from '../redux/actions';
 
-export default function SearchBar({ inputSearch }) {
+export default function SearchBar({ inputSearch, title }) {
   const [searchType, setSearchType] = useState('');
   const dispatch = useDispatch();
 
@@ -12,16 +19,34 @@ export default function SearchBar({ inputSearch }) {
       ? global.alert('Your search must have only 1 (one) character')
       : dispatch(searchFirstLetter(inputSearch)));
 
+  const checkDrinkFirstLetter = () => (
+    inputSearch.length > 1
+      ? global.alert('Your search must have only 1 (one) character')
+      : dispatch(searchDrinkFirstLetter(inputSearch)));
+
   const searchClick = () => {
-    switch (searchType) {
-    case 'ingredientSeach':
-      console.log('ingredientSeach');
-      return dispatch(searchIngredient(inputSearch));
-    case 'nameSearch':
-      console.log('nameSearch');
-      return dispatch(searchName(inputSearch));
-    default:
-      checkFirstLetter();
+    if (title === 'Meals') {
+      switch (searchType) {
+      case 'ingredientSeach':
+        console.log('ingredientSeach');
+        return dispatch(searchIngredient(inputSearch));
+      case 'nameSearch':
+        console.log('nameSearch');
+        return dispatch(searchName(inputSearch));
+      default:
+        checkFirstLetter();
+      }
+    } else if (title === 'Drinks') {
+      switch (searchType) {
+      case 'ingredientSeach':
+        console.log('ingredientSeach');
+        return dispatch(searchDrinkIngredient(inputSearch));
+      case 'nameSearch':
+        console.log('nameSearch');
+        return dispatch(searchDrinkName(inputSearch));
+      default:
+        checkDrinkFirstLetter();
+      }
     }
   };
 
