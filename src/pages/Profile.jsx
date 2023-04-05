@@ -11,6 +11,7 @@ export default function Profile() {
     history.push('/');
   };
   const email = JSON.parse(localStorage.getItem('user'));
+  console.log(email);
 
   return (
     <div>
@@ -19,7 +20,7 @@ export default function Profile() {
         <h2
           data-testid="profile-email"
         >
-          { email.email }
+          { email && email.email }
         </h2>
 
         <label htmlFor="btnDone">
