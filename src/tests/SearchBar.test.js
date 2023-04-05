@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 // import { renderWithRouter } from './helpers/renderWith';
-import Meals from '../pages/Meals';
+import Meals from '../components/Meals';
 // import App from '../App';
 
 describe('Testes do component SearchBar.js', () => {
