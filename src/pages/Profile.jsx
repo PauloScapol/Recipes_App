@@ -1,20 +1,16 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 // import Login from './Login';
 
 export default function Profile() {
-  const [formData] = useState({
-    email: '',
-  });
-
   const history = useHistory();
   const btnLogout = () => {
     localStorage.clear();
     history.push('/');
   };
-  const email = JSON.parse(localStorage.getItem('user', formData.value));
+  const email = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
