@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
@@ -8,8 +9,10 @@ export default function Drinks() {
   const [categories, setCategories] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(''); // nova state para armazenar a categoria selecionada
+  const stateSearch = useSelector((state) => state.apiSearch);
   const maxDrinks = 12;
   const maxDrinksCategories = 5;
+  const drinksGlobal = stateSearch.drinks.slice(0, maxDrinks);
 
   useEffect(() => {
     async function getDrinksCategories() {
@@ -74,18 +77,31 @@ export default function Drinks() {
         ))}
       </div>
       <div className="recipe-cards">
-        {drinks.map((drink, index) => (
-          <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
-            <div className="individual-recipe" data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
-            </div>
-          </Link>
-        ))}
+        {(drinksGlobal.length > 1)
+          ? (drinksGlobal.map((drink, index) => (
+            <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+              <div className="individual-recipe" data-testid={ `${index}-recipe-card` }>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+                <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+              </div>
+            </Link>
+          )))
+          : (drinks.map((drink, index) => (
+            <Link to={ `/drinks/${drink.idDrink}` } key={ drink.idDrink }>
+              <div className="individual-recipe" data-testid={ `${index}-recipe-card` }>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+                <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+              </div>
+            </Link>
+          )))}
       </div>
       <Footer />
     </>
