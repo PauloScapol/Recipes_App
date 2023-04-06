@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import DrinkCardDetail from '../components/DrinkCardDetail';
 import MealCardDetail from '../components/MealCardDetail';
+import Recomendations from '../components/Recomendations';
 
 export default function RecipeDetails({ match: { params } }) {
   const [meal, setMeal] = useState(null);
@@ -35,12 +36,18 @@ export default function RecipeDetails({ match: { params } }) {
 
   if (drink !== null && meal === null) {
     return (
-      <DrinkCardDetail drinkDetail={ drink } />
+      <div>
+        <DrinkCardDetail drinkDetail={ drink } />
+        <Recomendations />
+      </div>
     );
   }
   if (meal !== null && drink === null) {
     return (
-      <MealCardDetail mealDetail={ meal } />
+      <div>
+        <MealCardDetail mealDetail={ meal } />
+        <Recomendations />
+      </div>
     );
   }
 }
