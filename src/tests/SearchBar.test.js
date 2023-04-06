@@ -207,3 +207,53 @@ describe('Testa busca pela radio First Letter de SearchBar.js', () => {
     expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=y');
   });
 });
+
+describe('Testa alert (Your search must have only 1 (one) character)', () => {
+  test('Meals: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
+    act(() => {
+      render(<Meals />);
+    });
+    const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const searcTopBtn = screen.getByTestId(testIdSearchTopBtn);
+    expect(searcTopBtn).toBeInTheDocument();
+    userEvent.click(searcTopBtn);
+
+    const letterRadio = screen.getByTestId(testIdSearchFirstLetterRadio);
+    userEvent.click(letterRadio);
+
+    const searchinput = screen.getByTestId(testIdSearchInput);
+    const lettersGA = 'ga';
+    userEvent.type(searchinput, lettersGA);
+
+    const searchbtn = screen.getByTestId(testIdSearchButton);
+    userEvent.click(searchbtn);
+
+    expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+  });
+});
+
+describe('Testa alert (Your search must have only 1 (one) character)', () => {
+  test('Drinks: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
+    act(() => {
+      render(<Drinks />);
+    });
+    const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const searcTopBtn = screen.getByTestId(testIdSearchTopBtn);
+    expect(searcTopBtn).toBeInTheDocument();
+    userEvent.click(searcTopBtn);
+
+    const letterRadio = screen.getByTestId(testIdSearchFirstLetterRadio);
+    userEvent.click(letterRadio);
+
+    const searchinput = screen.getByTestId(testIdSearchInput);
+    const lettersGA = 'ga';
+    userEvent.type(searchinput, lettersGA);
+
+    const searchbtn = screen.getByTestId(testIdSearchButton);
+    userEvent.click(searchbtn);
+
+    expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+  });
+});
