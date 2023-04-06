@@ -13,9 +13,6 @@ describe('Teste de funcionalidade do componente Header', () => {
   const profileTopBtn = 'profile-top-btn';
   const pageTitle = 'page-title';
   const inputSearch = 'search-input';
-  const testIdSearchNameRadio = 'name-search-radio';
-  const testIdSearchFirstLetterRadio = 'first-letter-search-radio';
-  const testIdSearchButton = 'exec-search-btn';
 
   test('Os componentes estão na tela da página Meals', () => {
     render(<Meals />);
