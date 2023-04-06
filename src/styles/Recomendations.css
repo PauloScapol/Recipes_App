@@ -1,0 +1,46 @@
+.carousel-div {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+}
+
+.carousel-it {
+  display: flex;
+  flex: 0 0 100%;
+  margin-right: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.carousel-item img {
+  height: auto;
+  width: 300px;
+}
+
+.carousel-prev, .carousel-next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+  color: #fff;
+}
+
+.carousel-prev:focus, .carousel-next:focus {
+  outline: none;
+}
