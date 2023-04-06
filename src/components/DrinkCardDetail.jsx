@@ -32,6 +32,8 @@ export default function DrinkCardDetail({ drinkDetail }) {
           { quantity[index] !== undefined ? quantity[index][1] : ''}
         </li>
       ))}
+      <button type="button" data-testid="share-btn">Compartilhe</button>
+      <button type="button" data-testid="favorite-btn">Favorite</button>
 
     </div>
   );
