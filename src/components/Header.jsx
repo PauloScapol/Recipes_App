@@ -3,9 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import store from '../redux/store';
-
-import { Provider } from 'react-redux';
-import store from '../redux/store';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
