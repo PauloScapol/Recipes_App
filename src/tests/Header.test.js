@@ -13,6 +13,9 @@ describe('Teste de funcionalidade do componente Header', () => {
   const profileTopBtn = 'profile-top-btn';
   const pageTitle = 'page-title';
   const inputSearch = 'search-input';
+  const testIdSearchNameRadio = 'name-search-radio';
+  const testIdSearchFirstLetterRadio = 'first-letter-search-radio';
+  const testIdSearchButton = 'exec-search-btn';
 
   test('Os componentes estão na tela da página Meals', () => {
     render(<Meals />);
@@ -71,5 +74,16 @@ describe('Teste de funcionalidade do componente Header', () => {
 
     userEvent.click(searchBtn);
     expect(searchChange).not.toBeInTheDocument();
+  });
+
+  test('Ao digitar no Input search ele adiciona o valor', () => {
+    renderPath('/meals');
+
+    const searchBtn = screen.getByTestId(searchTopBtn);
+    userEvent.click(searchBtn);
+
+    const searchChange = screen.getByTestId(inputSearch);
+    userEvent.type(searchChange, 'sushi');
+    expect(searchChange).toHaveValue('sushi');
   });
 });
