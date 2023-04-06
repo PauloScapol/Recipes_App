@@ -14,6 +14,15 @@ export default function MealInProgress({ setRecipe }) {
       const data = await response.json();
       setMeal(data.meals[0]);
       setRecipe(data.meals[0]);
+
+      const inProgressRecipes = JSON
+        .parse(localStorage.getItem('inProgressRecipes')) || {};
+      const currentRecipe = inProgressRecipes[data.meals[0].idMeal] || {};
+      const ingredients = Object.keys(currentRecipe)
+        .filter((ingredient) => currentRecipe[ingredient])
+        .map((ingredient) => ingredient);
+
+      setCheckedIngredients(ingredients);
     }
 
     fetchMeal();
@@ -28,6 +37,15 @@ export default function MealInProgress({ setRecipe }) {
     } else {
       setCheckedIngredients([...checkedIngredients, name]);
     }
+
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [meal.idMeal]: {
+        ...inProgressRecipes[meal.idMeal],
+        [name]: !checkedIngredients.includes(name),
+      },
+    }));
   }
 
   return (
