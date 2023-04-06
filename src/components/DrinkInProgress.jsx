@@ -15,6 +15,15 @@ export default function DrinkInProgress({ setRecipe }) {
       const data = await response.json();
       setDrink(data.drinks[0]);
       setRecipe(data.drinks[0]);
+
+      const inProgressRecipes = JSON
+        .parse(localStorage.getItem('inProgressRecipes')) || {};
+      const currentRecipe = inProgressRecipes[data.drinks[0].idDrink] || {};
+      const ingredients = Object.keys(currentRecipe)
+        .filter((ingredient) => currentRecipe[ingredient])
+        .map((ingredient) => ingredient);
+
+      setCheckedIngredients(ingredients);
     }
 
     fetchDrink();
@@ -29,6 +38,15 @@ export default function DrinkInProgress({ setRecipe }) {
     } else {
       setCheckedIngredients([...checkedIngredients, name]);
     }
+
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [drink.idDrink]: {
+        ...inProgressRecipes[drink.idDrink],
+        [name]: !checkedIngredients.includes(name),
+      },
+    }));
   }
 
   return (
