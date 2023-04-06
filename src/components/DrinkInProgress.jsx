@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/DrinkInProgress.css';
 
@@ -8,7 +8,9 @@ export default function DrinkInProgress({ setRecipe }) {
   const [checkedIngredients, setCheckedIngredients] = useState([]);
   const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
   const { id } = useParams();
-  const slice13 = 13;
+  const history = useHistory();
+  const dateNow = new Date();
+  const measure13 = 13;
 
   useEffect(() => {
     async function fetchDrink() {
@@ -59,6 +61,26 @@ export default function DrinkInProgress({ setRecipe }) {
     }
   }, [checkedIngredients, drink]);
 
+  function handleFinishRecipe() {
+    const doneRecipe = {
+      id: drink.idDrink,
+      nationality: '', // Tive que olhar o arquivo do Cypress um milhão de vezes pra ver que o erro era que as bebidas não tem nacionalidade
+      name: drink.strDrink,
+      category: drink.strCategory,
+      image: drink.strDrinkThumb,
+      tags: drink.strTags ? drink.strTags.split(',') : [],
+      alcoholicOrNot: drink.strAlcoholic,
+      type: 'drink',
+      doneDate: dateNow.toISOString(),
+    };
+
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneRecipe]));
+
+    history.push('/done-recipes');
+  }
+
   return (
     <div>
       <img src={ drink.strDrinkThumb } alt="Recipe" data-testid="recipe-photo" />
@@ -80,8 +102,11 @@ export default function DrinkInProgress({ setRecipe }) {
                 onChange={ handleCheckboxChange }
               />
               {value}
+              {' '}
               -
-              {drink[`strMeasure${key.slice(slice13)}`]}
+              {' '}
+              {drink[`strMeasure${key.slice(measure13)}`]}
+              {/* Como a chave strMeasure tem um número após as 12 primeiras letras, é necessário remover os primeiros 13 caracteres de key para obter apenas o número */}
             </label>
           ))}
       </ul>
@@ -92,6 +117,7 @@ export default function DrinkInProgress({ setRecipe }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ !allIngredientsChecked }
+        onClick={ handleFinishRecipe }
       >
         Finalizar Receita
       </button>
