@@ -72,4 +72,15 @@ describe('Teste de funcionalidade do componente Header', () => {
     userEvent.click(searchBtn);
     expect(searchChange).not.toBeInTheDocument();
   });
+
+  test('Ao digitar no Input search ele adiciona o valor', () => {
+    renderPath('/meals');
+
+    const searchBtn = screen.getByTestId(searchTopBtn);
+    userEvent.click(searchBtn);
+
+    const searchChange = screen.getByTestId(inputSearch);
+    userEvent.type(searchChange, 'sushi');
+    expect(searchChange).toHaveValue('sushi');
+  });
 });

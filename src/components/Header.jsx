@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -54,7 +56,9 @@ export default function Header({ title, showSearchIcon }) {
             value={ searchInput }
             onChange={ ({ target }) => setSearchInput(target.value) }
           />
-          <SearchBar inputSearch={ searchInput } title={ title } />
+          <Provider store={ store }>
+            <SearchBar inputSearch={ searchInput } title={ title } />
+          </Provider>
         </form>
       )}
       <h1 data-testid="page-title">{title}</h1>
