@@ -6,6 +6,7 @@ import '../styles/DrinkInProgress.css';
 export default function DrinkInProgress({ setRecipe }) {
   const [drink, setDrink] = useState({});
   const [checkedIngredients, setCheckedIngredients] = useState([]);
+  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
   const { id } = useParams();
   const slice13 = 13;
 
@@ -49,6 +50,15 @@ export default function DrinkInProgress({ setRecipe }) {
     }));
   }
 
+  useEffect(() => {
+    if (checkedIngredients.length === Object.keys(drink)
+      .filter((key) => key.startsWith('strIngredient') && drink[key]).length) {
+      setAllIngredientsChecked(true);
+    } else {
+      setAllIngredientsChecked(false);
+    }
+  }, [checkedIngredients, drink]);
+
   return (
     <div>
       <img src={ drink.strDrinkThumb } alt="Recipe" data-testid="recipe-photo" />
@@ -78,7 +88,13 @@ export default function DrinkInProgress({ setRecipe }) {
       <p data-testid="instructions">{drink.strInstructions}</p>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ !allIngredientsChecked }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 export default function MealInProgress({ setRecipe }) {
   const [meal, setMeal] = useState({});
   const [checkedIngredients, setCheckedIngredients] = useState([]);
+  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
   const { id } = useParams();
   const slice13 = 13;
 
@@ -48,6 +49,15 @@ export default function MealInProgress({ setRecipe }) {
     }));
   }
 
+  useEffect(() => {
+    if (checkedIngredients.length === Object.keys(meal)
+      .filter((key) => key.startsWith('strIngredient') && meal[key]).length) {
+      setAllIngredientsChecked(true);
+    } else {
+      setAllIngredientsChecked(false);
+    }
+  }, [checkedIngredients, meal]);
+
   return (
     <div>
       <img src={ meal.strMealThumb } alt="Recipe" data-testid="recipe-photo" />
@@ -77,7 +87,13 @@ export default function MealInProgress({ setRecipe }) {
       <p data-testid="instructions">{meal.strInstructions}</p>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button type="button" data-testid="favorite-btn">Favoritar</button>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ !allIngredientsChecked }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
