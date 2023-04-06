@@ -22,7 +22,7 @@ export default function Recomendations() {
     fetchMeals();
   }, []);
   const [position, setPosition] = useState(0);
-  const itemWidth = 640 + 10; // largura do item + margem direita
+  const itemWidth = 100 + 10; // largura do item + margem direita
 
   const handleClickPrev = () => {
     let newPosition = position + itemWidth;
@@ -44,12 +44,15 @@ export default function Recomendations() {
     console.log('entrou');
     return (
       <div className="carousel-div">
-        <div className="carousel">
+        <div className="carousel" style={ { transform: `translateX(${position}px)` } }>
           {meals.length > 0 && meals.map((item, index) => (
             <div key={ index }>
-              <h2>Aparece alguma coisa pelo amor de deus</h2>
+              <p>{item.strMeal}</p>
+              <img src={ item.strMealThumb } alt={ item.strMeal } />
             </div>
           ))}
+          <button className="carousel-prev" onClick={ handleClickPrev }>&#10094;</button>
+          <button className="carousel-next" onClick={ handleClickNext }>&#10095;</button>
         </div>
       </div>
     );
