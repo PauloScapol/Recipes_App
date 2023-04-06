@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function DrinkCardDetail({ drinkDetail }) {
   const drinkAr = Object.entries(drinkDetail);
@@ -32,7 +33,12 @@ export default function DrinkCardDetail({ drinkDetail }) {
           { quantity[index] !== undefined ? quantity[index][1] : ''}
         </li>
       ))}
-      <button type="button" data-testid="share-btn">Compartilhe</button>
+      <button type="button" data-testid="share-btn">
+        <img
+          src={ shareIcon }
+          alt="share icon"
+        />
+      </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
 
     </div>
