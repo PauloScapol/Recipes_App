@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
+import { copyUrl } from '../utils/copyUrl';
 
 export default function DrinkCardDetail({ drinkDetail }) {
+  const [clickButton, setClickButton] = useState(false);
   const drinkAr = Object.entries(drinkDetail);
   const quantity = drinkAr.filter((element) => (
     element[0].includes('strMeasure') && (
       element[1] !== ' ' && element[1] !== '' && element[1] !== null)));
   const ingredients = drinkAr.filter((element) => (
     element[0].includes('strIngredient') && element[1] !== null));
+
   return (
     <div>
       <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
@@ -33,7 +37,14 @@ export default function DrinkCardDetail({ drinkDetail }) {
           { quantity[index] !== undefined ? quantity[index][1] : ''}
         </li>
       ))}
-      <button type="button" data-testid="share-btn">
+      {clickButton && (
+        <span> Link copied! </span>
+      )}
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyUrl(setClickButton) }
+      >
         <img
           src={ shareIcon }
           alt="share icon"

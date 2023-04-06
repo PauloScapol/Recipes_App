@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
+import { copyUrl } from '../utils/copyUrl';
 
 export default function MealCardDetail({ mealDetail }) {
+  const [clickButton, setClickButton] = useState(false);
   const embedURL = mealDetail.strYoutube.split('=');
   const mealAr = Object.entries(mealDetail);
   const quantity = mealAr.filter((element) => (
@@ -31,7 +34,14 @@ export default function MealCardDetail({ mealDetail }) {
         </li>
       ))}
       <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
-      <button type="button" data-testid="share-btn">
+      {clickButton && (
+        <span> Link copied! </span>
+      )}
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyUrl(setClickButton) }
+      >
         <img
           src={ shareIcon }
           alt="share icon"
