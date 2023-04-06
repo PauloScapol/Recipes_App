@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   searchName,
   searchIngredient,
@@ -13,39 +14,56 @@ import {
 export default function SearchBar({ inputSearch, title }) {
   const [searchType, setSearchType] = useState('');
   const dispatch = useDispatch();
+  const stateSearch = useSelector((state) => state.apiSearch);
+  const { meals, drinks } = stateSearch;
+  const history = useHistory();
+
+  useEffect(() => {
+    if (title === 'Meals') {
+      const mealsLength = meals;
+      if (mealsLength.length === 1) {
+        const { idMeal } = meals[0];
+        return history.push(`/meals/${idMeal}`);
+      }
+    }
+    if (title === 'Drinks') {
+      const drinksLength = drinks;
+      if (drinksLength.length === 1) {
+        const { idDrink } = drinks[0];
+        return history.push(`/drinks/${idDrink}`);
+      }
+    }
+  }, [history, drinks, meals, title]);
 
   const checkFirstLetter = () => (
-    inputSearch.length > 1
+    (inputSearch.length > 1)
       ? global.alert('Your search must have only 1 (one) character')
-      : dispatch(searchFirstLetter(inputSearch)));
-
+      : dispatch(searchFirstLetter(inputSearch))
+  );
   const checkDrinkFirstLetter = () => (
-    inputSearch.length > 1
+    (inputSearch.length > 1)
       ? global.alert('Your search must have only 1 (one) character')
-      : dispatch(searchDrinkFirstLetter(inputSearch)));
+      : dispatch(searchDrinkFirstLetter(inputSearch))
+  );
 
-  const searchClick = () => {
+  const searchClick = async () => {
     if (title === 'Meals') {
       switch (searchType) {
       case 'ingredientSeach':
-        console.log('ingredientSeach');
         return dispatch(searchIngredient(inputSearch));
       case 'nameSearch':
-        console.log('nameSearch');
         return dispatch(searchName(inputSearch));
       default:
-        checkFirstLetter();
+        return checkFirstLetter();
       }
     } else if (title === 'Drinks') {
       switch (searchType) {
       case 'ingredientSeach':
-        console.log('ingredientSeach');
         return dispatch(searchDrinkIngredient(inputSearch));
       case 'nameSearch':
-        console.log('nameSearch');
         return dispatch(searchDrinkName(inputSearch));
       default:
-        checkDrinkFirstLetter();
+        return checkDrinkFirstLetter();
       }
     }
   };

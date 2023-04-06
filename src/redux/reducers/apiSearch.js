@@ -1,14 +1,21 @@
-import { SAVE_SEARCH } from '../actions';
+import { SAVE_MEALS, SAVE_DRINKS } from '../actions';
 
 const INITIAL_STATE = {
-  searchApi: '', // string que armazena o email da pessoa usuária
+  meals: [],
+  drinks: [],
 };
 const apiSearch = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_SEARCH: {
+  case SAVE_MEALS: {
     return {
-      ...state,
-      searchApi: action.payload,
+      meals: action.payload,
+      drinks: [],
+    };
+  }
+  case SAVE_DRINKS: {
+    return {
+      meals: [],
+      drinks: action.payload,
     };
   }
   default: return state;
