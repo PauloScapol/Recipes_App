@@ -1,46 +1,78 @@
-.carousel-div {
-  display: flex;
-  position: relative;
+section .slider {
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0;
   width: 100%;
 }
 
-.carousel {
+.slider-content {
   display: flex;
-  overflow: hidden;
-}
-
-.carousel div {
-  display: flex;
-  flex-direction: column;
-  margin-right: 10px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.carousel img {
   height: auto;
-  width: 200px;
+  overflow: hidden;
+  width: 400%;
 }
 
-.carousel-prev, .carousel-next {
-  cursor: pointer;
+.slider-content input {
+  display: none;
+}
+
+.slide-box {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  position: relative;
+  text-align: center;
+  transition: 1s;
+  width: 25%;
+}
+
+.slide-box img {
+  margin-left: 10px;
+  margin-right: 20px;
+  width: 150px;
+}
+
+.nav-manual, .nav-auto {
+  display: flex;
+  justify-content: center;
+  margin-top: 55%;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
+  width: 100%;
+
 }
 
-.carousel-prev {
-  left: 10px;
+.nav-manual .manual-btn, .nav-auto div {
+  border: 1px solid red;
+  border-radius: 50px;
+  padding: 10px;
+
 }
 
-.carousel-next {
-  right: 10px;
+.nav-manual .manual-btn:not( :last-child ), .nav-auto div:not( :last-child ) {
+  margin-right: 10px;
 }
 
-.carousel-prev:hover, .carousel-next:hover {
-  color: #fff;
+/* #radio1:checked ~ .nav-auto .auto-btn1 {
+  background-color: red;
 }
 
-.carousel-prev:focus, .carousel-next:focus {
-  outline: none;
+#radio2:checked ~ .nav-auto .auto-btn2 {
+  background-color: red;
+}
+
+#radio3:checked ~ .nav-auto .auto-btn3 {
+  background-color: red;
+} */
+
+/* #radio2:checked ~ .primeiro {
+  margin-left: -25%;
+}
+
+#radio3:checked ~ .primeiro {
+  margin-left: -50%;
+} */
+
+.slider-content input:checked ~ .primeiro {
+  margin-left: -25%;
 }

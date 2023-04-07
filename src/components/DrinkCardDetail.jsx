@@ -19,6 +19,7 @@ export default function DrinkCardDetail({ drinkDetail }) {
         src={ drinkDetail.strDrinkThumb }
         alt={ drinkDetail.strDrink }
         data-testid="recipe-photo"
+        style={ { width: '250px' } }
       />
       <p data-testid="instructions">{drinkDetail.strInstructions}</p>
       <h3>Ingredientes:</h3>
