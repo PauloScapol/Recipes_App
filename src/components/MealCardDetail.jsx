@@ -16,6 +16,7 @@ export default function MealCardDetail({ mealDetail }) {
         src={ mealDetail.strMealThumb }
         alt={ mealDetail.strMeal }
         data-testid="recipe-photo"
+        style={ { width: '250px' } }
       />
       <p data-testid="instructions">{mealDetail.strInstructions}</p>
       <h3>Ingredientes:</h3>
