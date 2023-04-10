@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Provider, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
-import store from '../redux/store'
 import '../styles/Meals.css';
 
 export default function Meals() {

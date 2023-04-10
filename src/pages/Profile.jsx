@@ -2,8 +2,6 @@ import { React } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
 // import Login from './Login';
 
 export default function Profile() {
@@ -13,11 +11,9 @@ export default function Profile() {
     history.push('/');
   };
   const email = JSON.parse(localStorage.getItem('user'));
-  console.log(email);
-
   return (
     <div>
-      <Header title="Meals" showSearchIcon />
+      <Header title="Profile" showSearchIcon={ false } />
       <div>
         <h2
           data-testid="profile-email"
