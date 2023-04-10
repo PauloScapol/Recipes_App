@@ -62,8 +62,7 @@ describe('Teste de funcionalidade do componente Header', () => {
 
   test('Aparece um input de pesquisa ao clicar no botão search e desaparece se clicar novamente', () => {
 
-    renderWithRedux(<Meals />);
-
+    renderPath('/meals');
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     expect(searchBtn).toBeInTheDocument();
@@ -77,8 +76,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Ao digitar no Input search ele adiciona o valor', () => {
-        renderWithRouterAndRedux(<Meals />);
-('/meals');
+    renderPath('/meals');
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     userEvent.click(searchBtn);
