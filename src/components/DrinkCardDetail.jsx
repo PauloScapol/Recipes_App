@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import StartRecipeButton from './StartRecipeButton';
 
 export default function DrinkCardDetail({ drinkDetail }) {
+  const history = useHistory();
   const drinkAr = Object.entries(drinkDetail);
   const quantity = drinkAr.filter((element) => (
     element[0].includes('strMeasure') && (
@@ -36,7 +38,7 @@ export default function DrinkCardDetail({ drinkDetail }) {
       ))}
       <button type="button" data-testid="share-btn">Compartilhe</button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
-      <StartRecipeButton />
+      <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
 }

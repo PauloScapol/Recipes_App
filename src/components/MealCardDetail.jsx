@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import StartRecipeButton from './StartRecipeButton';
 
 export default function MealCardDetail({ mealDetail }) {
+  const history = useHistory();
   const embedURL = mealDetail.strYoutube.split('=');
   const mealAr = Object.entries(mealDetail);
   const quantity = mealAr.filter((element) => (
@@ -34,7 +36,7 @@ export default function MealCardDetail({ mealDetail }) {
       <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
       <button type="button" data-testid="share-btn">Compartilhe</button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
-      <StartRecipeButton />
+      <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
 }
