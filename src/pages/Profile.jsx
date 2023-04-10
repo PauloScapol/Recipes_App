@@ -11,11 +11,9 @@ export default function Profile() {
     history.push('/');
   };
   const email = JSON.parse(localStorage.getItem('user'));
-  console.log(email);
-
   return (
     <div>
-      <Header title="Meals" showSearchIcon />
+      <Header title="Profile" showSearchIcon={ false } />
       <div>
         <h2
           data-testid="profile-email"
