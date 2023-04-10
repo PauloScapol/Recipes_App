@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderPath from './helpers/renderPath';
+// import { Provider } from 'react-redux';
+// import renderPath from './helpers/renderPath';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
 import Meals from '../components/Meals';
 import Drinks from '../components/Drinks';
 import Profile from '../pages/Profile';
+import App from '../App';
 // import DoneRecipes from '../pages/DoneRecipes';
 // import FavoriteRecipes from '../pages/FavoriteRecipes';
 
@@ -15,7 +18,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   const inputSearch = 'search-input';
 
   test('Os componentes estão na tela da página Meals', () => {
-    render(<Meals />);
+    renderWithRouterAndRedux(<Meals />);
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     const profileBtn = screen.getByTestId(profileTopBtn);
@@ -27,7 +30,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Os componentes estão na tela da página Drinks', () => {
-    render(<Drinks />);
+    renderWithRouterAndRedux(<Drinks />);
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     const profileBtn = screen.getByTestId(profileTopBtn);
@@ -39,7 +42,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Os componentes estão na tela da página Profile', () => {
-    render(<Profile />);
+    renderWithRouterAndRedux(<Profile />);
 
     const profileBtn = screen.getByTestId(profileTopBtn);
     const pageTl = screen.getByTestId(pageTitle);
@@ -49,8 +52,10 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Ao clicar no botão ProfileBtn, é redirecionado para a página Profile', () => {
-    renderPath('/meals');
-
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
     const profileBtn = screen.getByTestId(profileTopBtn);
     userEvent.click(profileBtn);
 
@@ -60,7 +65,10 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Aparece um input de pesquisa ao clicar no botão search e desaparece se clicar novamente', () => {
-    renderPath('/meals');
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     expect(searchBtn).toBeInTheDocument();
@@ -74,7 +82,10 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Ao digitar no Input search ele adiciona o valor', () => {
-    renderPath('/meals');
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+      history.push('/meals');
+    });
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     userEvent.click(searchBtn);
