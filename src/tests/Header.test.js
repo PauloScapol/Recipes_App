@@ -5,6 +5,7 @@ import renderPath from './helpers/renderPath';
 import Meals from '../components/Meals';
 import Drinks from '../components/Drinks';
 import Profile from '../pages/Profile';
+import {renderWithRouterAndRedux, renderWithRedux} from '../tests/helpers/renderWith'
 // import DoneRecipes from '../pages/DoneRecipes';
 // import FavoriteRecipes from '../pages/FavoriteRecipes';
 
@@ -39,7 +40,7 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Os componentes estão na tela da página Profile', () => {
-    render(<Profile />);
+    renderWithRouterAndRedux(<Profile />);
 
     const profileBtn = screen.getByTestId(profileTopBtn);
     const pageTl = screen.getByTestId(pageTitle);
@@ -60,7 +61,9 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Aparece um input de pesquisa ao clicar no botão search e desaparece se clicar novamente', () => {
-    renderPath('/meals');
+
+    renderWithRedux(<Meals />);
+
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     expect(searchBtn).toBeInTheDocument();
@@ -74,7 +77,8 @@ describe('Teste de funcionalidade do componente Header', () => {
   });
 
   test('Ao digitar no Input search ele adiciona o valor', () => {
-    renderPath('/meals');
+        renderWithRouterAndRedux(<Meals />);
+('/meals');
 
     const searchBtn = screen.getByTestId(searchTopBtn);
     userEvent.click(searchBtn);

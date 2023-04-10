@@ -79,11 +79,6 @@ export default function Recomendations() {
               });
             } }
           />
-          <div className="nav-manual">
-            <label htmlFor="radio1" className="manual-btn">{}</label>
-            <label htmlFor="radio2" className="manual-btn">{}</label>
-            <label htmlFor="radio3" className="manual-btn">{}</label>
-          </div>
 
           <div className="slide-box primeiro">
             <div data-testid="0-recommendation-card" className="re-card">
@@ -114,6 +109,17 @@ export default function Recomendations() {
               <p data-testid="5-recommendation-title">{meals[5].strMeal}</p>
               <img src={ meals[5].strMealThumb } alt={ meals[5].strMeal } />
             </div>
+          </div>
+          <div className="nav-auto">
+            <div className="auto-btn1" />
+            <div className="auto-btn2" />
+            <div className="auto-btn3" />
+          </div>
+
+          <div className="nav-manual">
+            <label htmlFor="radio1" className="manual-btn">{}</label>
+            <label htmlFor="radio2" className="manual-btn">{}</label>
+            <label htmlFor="radio3" className="manual-btn">{}</label>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import StartRecipeButton from './StartRecipeButton';
 
 export default function MealCardDetail({ mealDetail }) {
   const embedURL = mealDetail.strYoutube.split('=');
@@ -33,6 +34,7 @@ export default function MealCardDetail({ mealDetail }) {
       <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
       <button type="button" data-testid="share-btn">Compartilhe</button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
+      <StartRecipeButton/>
     </div>
   );
 }

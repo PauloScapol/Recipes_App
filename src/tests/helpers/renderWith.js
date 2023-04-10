@@ -5,6 +5,7 @@ import { Router } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import { render } from '@testing-library/react';
 import thunk from 'redux-thunk';
+import recipesReducer from '../../redux/reducers';
 
 function withRouter(component, history) {
   return (
@@ -38,7 +39,7 @@ export function renderWithRouter(
 export function renderWithRedux(component, options = {}) {
   const {
     initialState = {},
-    store = createStore(rootReducer, initialState, applyMiddleware(thunk)),
+    store = createStore(recipesReducer, initialState, applyMiddleware(thunk)),
   } = options;
 
   return {
