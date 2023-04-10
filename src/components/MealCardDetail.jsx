@@ -1,39 +1,42 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import shareIcon from '../images/shareIcon.svg';
-import { copyUrl } from '../utils/copyUrl';
+import { useHistory } from 'react-router-dom';
+import StartRecipeButton from './StartRecipeButton';
 
-export default function MealCardDetail({ mealDetail }) {
+export default function DrinkCardDetail({ drinkDetail }) {
   const [clickButton, setClickButton] = useState(false);
-  const embedURL = mealDetail.strYoutube.split('=');
-  const mealAr = Object.entries(mealDetail);
-  const quantity = mealAr.filter((element) => (
+  const history = useHistory();
+  const drinkAr = Object.entries(drinkDetail);
+  const quantity = drinkAr.filter((element) => (
     element[0].includes('strMeasure') && (
       element[1] !== ' ' && element[1] !== '' && element[1] !== null)));
-  const ingredients = mealAr.filter((element) => (
-    element[0].includes('strIngredient') && (element[1] !== '' && element[1] !== null)));
+  const ingredients = drinkAr.filter((element) => (
+    element[0].includes('strIngredient') && element[1] !== null));
   return (
     <div>
-      <h1 data-testid="recipe-title">{mealDetail.strMeal}</h1>
-      <h3 data-testid="recipe-category">{mealDetail.strCategory}</h3>
+      <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
+      <h3 data-testid="recipe-category">
+        {drinkDetail.strCategory}
+        {' '}
+        {drinkDetail.strAlcoholic}
+      </h3>
       <img
-        src={ mealDetail.strMealThumb }
-        alt={ mealDetail.strMeal }
+        src={ drinkDetail.strDrinkThumb }
+        alt={ drinkDetail.strDrink }
         data-testid="recipe-photo"
+        style={ { width: '250px' } }
       />
-      <p data-testid="instructions">{mealDetail.strInstructions}</p>
+      <p data-testid="instructions">{drinkDetail.strInstructions}</p>
       <h3>Ingredientes:</h3>
       {ingredients.map((ingredient, index) => (
         <li
           data-testid={ `${index}-ingredient-name-and-measure` }
           key={ index }
         >
-          {ingredient[1]}
-          {' '}
-          {quantity[index][1]}
+          {`${ingredient[1]}`}
+          { ' ' }
+          { quantity[index] !== undefined ? quantity[index][1] : ''}
         </li>
       ))}
-      <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
       {clickButton && (
         <span> Link copied! </span>
       )}
@@ -48,15 +51,19 @@ export default function MealCardDetail({ mealDetail }) {
         />
       </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
+
+      <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
 }
 
-MealCardDetail.propTypes = {
-  Meal: PropTypes.shape({
-    strMeal: PropTypes.string,
+DrinkCardDetail.propTypes = {
+  drinkDetail: PropTypes.shape({
+    strDrink: PropTypes.string,
     strCategory: PropTypes.string,
-    strMealThumb: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMeal: PropTypes.string,
     strInstructions: PropTypes.string,
   }),
 }.isRequired;
