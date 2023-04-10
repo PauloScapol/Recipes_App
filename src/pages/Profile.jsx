@@ -2,8 +2,6 @@ import { React } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
 // import Login from './Login';
 
 export default function Profile() {
