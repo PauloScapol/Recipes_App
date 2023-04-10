@@ -56,7 +56,7 @@ export default function Drinks() {
 
   return (
     <>
-      <Header title="Drinks" showSearchIcon />
+      <Header title="Meals" showSearchIcon />
       <div className="category-btns">
         <button
           key="All"

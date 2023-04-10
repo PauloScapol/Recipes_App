@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 // import shareIcon from '../images/shareIcon.svg';
 
 export default function ReceitasFeitas() {
@@ -26,7 +28,7 @@ export default function ReceitasFeitas() {
 
   return (
     <div>
-      <Header title="Done Recipes" showSearchIcon={ false } />
+      <Header title="Meals" showSearchIcon />
       <div>
         <button
           data-testid="filter-by-all-btn"
