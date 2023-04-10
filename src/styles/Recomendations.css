@@ -53,7 +53,7 @@ section .slider {
   margin-right: 10px;
 }
 
-#radio1:checked ~ .nav-auto .auto-btn1 {
+/* #radio1:checked ~ .nav-auto .auto-btn1 {
   background-color: red;
 }
 
@@ -63,15 +63,15 @@ section .slider {
 
 #radio3:checked ~ .nav-auto .auto-btn3 {
   background-color: red;
-} 
+} */
 
-#radio2:checked ~ .primeiro {
+/* #radio2:checked ~ .primeiro {
   margin-left: -25%;
 }
 
 #radio3:checked ~ .primeiro {
   margin-left: -50%;
-}
+} */
 
 .slider-content input:checked ~ .primeiro {
   margin-left: -25%;
