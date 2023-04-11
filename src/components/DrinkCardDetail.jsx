@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
+import StartRecipeButton from './StartRecipeButton';
+import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
-import { copyUrl } from '../utils/copyUrl';
 
 export default function DrinkCardDetail({ drinkDetail }) {
   const [clickButton, setClickButton] = useState(false);
+  const history = useHistory();
   const drinkAr = Object.entries(drinkDetail);
   const quantity = drinkAr.filter((element) => (
     element[0].includes('strMeasure') && (
       element[1] !== ' ' && element[1] !== '' && element[1] !== null)));
   const ingredients = drinkAr.filter((element) => (
     element[0].includes('strIngredient') && element[1] !== null));
-
   return (
     <div>
       <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
@@ -24,6 +26,7 @@ export default function DrinkCardDetail({ drinkDetail }) {
         src={ drinkDetail.strDrinkThumb }
         alt={ drinkDetail.strDrink }
         data-testid="recipe-photo"
+        style={ { width: '250px' } }
       />
       <p data-testid="instructions">{drinkDetail.strInstructions}</p>
       <h3>Ingredientes:</h3>
@@ -51,7 +54,7 @@ export default function DrinkCardDetail({ drinkDetail }) {
         />
       </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
-
+      <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
 }
