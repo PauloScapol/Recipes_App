@@ -9,7 +9,7 @@ export default function FavoriteRecipes() {
   useEffect(() => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavoriteRecipes(recipes);
-  });
+  }, []);
 
   return (
     <div>
@@ -29,7 +29,8 @@ export default function FavoriteRecipes() {
             data-testid={ `${index}-horizontal-top-text` }
           >
             {`${recipe.nationality} - ${recipe.category}`}
-
+            {' '}
+            { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
           </p>
           <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
           <div
