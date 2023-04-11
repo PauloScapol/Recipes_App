@@ -9,6 +9,9 @@ describe('first', () => {
   const btnDone = 'profile-done-btn';
   const btnFavorite = 'profile-favorite-btn';
   const btnLogout = 'profile-logout-btn';
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
 
   test('testa se aparece o email na tela', () => {
     renderWithRouter(<Profile />);
@@ -35,24 +38,28 @@ describe('first', () => {
       expect(pathname).toBe('/favorite-recipes');
     });
   });
-  test('testa se existe o botão "logout" e se direciona para a tela de login', () => {
+  test('testa se existe o botão "logout" e se direciona para a tela de login', async () => {
+    // beforeEach(() => {
+    //   window.localStorage.clear();
+    // });
     const { history } = renderWithRouter(<Profile />);
     const logoutBtn = screen.getByTestId(btnLogout);
     expect(logoutBtn).toBeInTheDocument();
     userEvent.click(logoutBtn);
-    waitFor(() => {
+    await waitFor(() => {
       const { pathname } = history.location;
       expect(pathname).toBe('/');
+      // expect(window.localStorage.length).toBe(0);
     });
   });
-  // test('should first', () => {
-  //   renderWithRouter(<Profile />);
+  test('testa se o logout limpa o localStorage', () => {
+    renderWithRouter(<Profile />);
+    const logoutBtn = screen.getByTestId(btnLogout);
+    expect(logoutBtn).toBeInTheDocument();
+    userEvent.click(logoutBtn);
 
-  // });
-  // test('should first', () => {
-  //   renderWithRouter(<Profile />);
-
-  // });
+    expect(window.localStorage.length).toBe(0);
+  });
   // test('should first', () => {
   //   renderWithRouter(<Profile />);
 
