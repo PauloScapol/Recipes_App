@@ -82,6 +82,7 @@ export default function MealInProgress({ setRecipe }) {
 
   return (
     <div>
+      <p data-testid="meal-in-progress"> </p>
       <img src={ meal.strMealThumb } alt="Recipe" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{meal.strMeal}</h1>
       <p data-testid="recipe-category">{meal.strCategory}</p>
