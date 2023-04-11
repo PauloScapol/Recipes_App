@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/DrinkInProgress.css';
+import clipboardCopy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function DrinkInProgress({ setRecipe }) {
   const [drink, setDrink] = useState({});
   const [checkedIngredients, setCheckedIngredients] = useState([]);
   const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [message, setMessage] = useState('');
   const { id } = useParams();
   const history = useHistory();
   const dateNow = new Date();
@@ -81,12 +87,61 @@ export default function DrinkInProgress({ setRecipe }) {
     history.push('/done-recipes');
   }
 
+  function handleFavorite() { // Função para lidar com o clique no botão de favoritar
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === drink.idDrink);
+
+    if (!isRecipeFavorited) {
+      const favoriteRecipe = {
+        id: drink.idDrink,
+        name: drink.strDrink,
+        image: drink.strDrinkThumb,
+        category: drink.strCategory,
+        alcoholicOrNot: drink.strAlcoholic,
+        nationality: '',
+        type: 'drink',
+      };
+
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, favoriteRecipe]));
+
+      setIsFavorite(true);
+    } else {
+      const filteredFavoriteRecipes = favoriteRecipes
+        .filter((recipe) => recipe.id !== drink.idDrink);
+
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavoriteRecipes));
+
+      setIsFavorite(false);
+    }
+  }
+
+  useEffect(() => { // Efeito para verificar se a receita já foi favoritada anteriormente
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === drink.idDrink);
+
+    setIsFavorite(isRecipeFavorited);
+  }, [drink.idDrink]);
+
+  function copyLink() {
+    const currentUrl = window.location.href;
+    const linkWithoutInProgress = currentUrl.replace('/in-progress', '');
+    clipboardCopy(linkWithoutInProgress);
+    setMessage('Link copied!');
+  }
+
   return (
     <div>
       <p data-testid="drink-in-progress"> </p>
+
       <img src={ drink.strDrinkThumb } alt="Recipe" data-testid="recipe-photo" />
+
       <h1 data-testid="recipe-title">{drink.strDrink}</h1>
+
       <p data-testid="recipe-category">{drink.strAlcoholic}</p>
+
       <ul>
         {Object.entries(drink)
           .filter(([key]) => key.startsWith('strIngredient') && drink[key])
@@ -111,9 +166,31 @@ export default function DrinkInProgress({ setRecipe }) {
             </label>
           ))}
       </ul>
+
       <p data-testid="instructions">{drink.strInstructions}</p>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+
+      <button
+        type="button"
+        onClick={ copyLink }
+      >
+        <img
+          data-testid="share-btn"
+          src={ shareIcon }
+          alt="Share recipe"
+        />
+      </button>
+
+      {message && <span>{message}</span>}
+
+      <button
+        type="button"
+        onClick={ handleFavorite }
+      >
+        {isFavorite
+          ? <img data-testid="favorite-btn" src={ blackHeartIcon } alt="Favorited" />
+          : <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="Not favorited" />}
+      </button>
+
       <button
         type="button"
         data-testid="finish-recipe-btn"
