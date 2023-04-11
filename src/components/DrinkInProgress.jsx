@@ -83,6 +83,7 @@ export default function DrinkInProgress({ setRecipe }) {
 
   return (
     <div>
+      <p data-testid="drink-in-progress"> </p>
       <img src={ drink.strDrinkThumb } alt="Recipe" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{drink.strDrink}</h1>
       <p data-testid="recipe-category">{drink.strAlcoholic}</p>
