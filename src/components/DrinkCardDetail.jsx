@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import StartRecipeButton from './StartRecipeButton';
+import copyUrl from '../utils/copyUrl';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function DrinkCardDetail({ drinkDetail }) {
+  const [clickButton, setClickButton] = useState(false);
   const history = useHistory();
   const drinkAr = Object.entries(drinkDetail);
   const quantity = drinkAr.filter((element) => (
@@ -36,7 +40,19 @@ export default function DrinkCardDetail({ drinkDetail }) {
           { quantity[index] !== undefined ? quantity[index][1] : ''}
         </li>
       ))}
-      <button type="button" data-testid="share-btn">Compartilhe</button>
+      {clickButton && (
+        <span> Link copied! </span>
+      )}
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyUrl(setClickButton) }
+      >
+        <img
+          src={ shareIcon }
+          alt="share icon"
+        />
+      </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
       <StartRecipeButton type={ history.location.pathname } />
     </div>
