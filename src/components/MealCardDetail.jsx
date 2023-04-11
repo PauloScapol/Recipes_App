@@ -4,9 +4,12 @@ import { useState } from 'react';
 import StartRecipeButton from './StartRecipeButton';
 import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
+import white from '../images/whiteHeartIcon.svg';
+import black from '../images/blackHeartIcon.svg';
 
 export default function MealCardDetail({ mealDetail }) {
   const [clickButton, setClickButton] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const embedURL = mealDetail.strYoutube.split('=');
   const mealAr = Object.entries(mealDetail);
@@ -15,6 +18,29 @@ export default function MealCardDetail({ mealDetail }) {
       element[1] !== ' ' && element[1] !== '' && element[1] !== null)));
   const ingredients = mealAr.filter((element) => (
     element[0].includes('strIngredient') && (element[1] !== '' && element[1] !== null)));
+
+  const favoriteRecipes = () => {
+    const favoriteRecipe = {
+      id: mealDetail.idMeal,
+      type: 'meal',
+      nationality: mealDetail.strArea,
+      category: mealDetail.strCategory,
+      alcoholicOrNot: '',
+      name: mealDetail.strMeal,
+      image: mealDetail.strMealThumb,
+    };
+    if (favorite === true) {
+      setFavorite(false);
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      setFavorite(true);
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([favoriteRecipe]),
+      );
+    }
+  };
+
   return (
     <div>
       <h1 data-testid="recipe-title">{mealDetail.strMeal}</h1>
@@ -51,7 +77,16 @@ export default function MealCardDetail({ mealDetail }) {
           alt="share icon"
         />
       </button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ favoriteRecipes }
+      >
+        {favorite
+          ? (<img src={ black } alt="favorite" />)
+          : (<img src={ white } alt="not favorite" />)}
+
+      </button>
       <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
