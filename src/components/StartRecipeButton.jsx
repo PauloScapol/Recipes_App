@@ -6,7 +6,7 @@ export default function StartRecipeButton(type) {
   const url = Object.values(type);
   const id = url[0].split('/');
 
-  if (recipeSituation !== null && !recipeSituation[id[2]]) {
+  if (recipeSituation && !recipeSituation[id[2]]) {
     return (
       <div>
         <button
