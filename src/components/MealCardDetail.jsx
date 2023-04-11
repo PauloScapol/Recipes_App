@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 import StartRecipeButton from './StartRecipeButton';
+import copyUrl from '../utils/copyUrl';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function MealCardDetail({ mealDetail }) {
+  const [clickButton, setClickButton] = useState(false);
   const history = useHistory();
   const embedURL = mealDetail.strYoutube.split('=');
   const mealAr = Object.entries(mealDetail);
@@ -34,7 +38,19 @@ export default function MealCardDetail({ mealDetail }) {
         </li>
       ))}
       <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
-      <button type="button" data-testid="share-btn">Compartilhe</button>
+      {clickButton && (
+        <span> Link copied! </span>
+      )}
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ () => copyUrl(setClickButton) }
+      >
+        <img
+          src={ shareIcon }
+          alt="share icon"
+        />
+      </button>
       <button type="button" data-testid="favorite-btn">Favorite</button>
       <StartRecipeButton type={ history.location.pathname } />
     </div>
