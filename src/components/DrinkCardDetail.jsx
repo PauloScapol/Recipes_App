@@ -4,9 +4,12 @@ import { useState } from 'react';
 import StartRecipeButton from './StartRecipeButton';
 import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
+import white from '../images/whiteHeartIcon.svg';
+import black from '../images/blackHeartIcon.svg';
 
 export default function DrinkCardDetail({ drinkDetail }) {
   const [clickButton, setClickButton] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const history = useHistory();
   const drinkAr = Object.entries(drinkDetail);
   const quantity = drinkAr.filter((element) => (
@@ -14,6 +17,28 @@ export default function DrinkCardDetail({ drinkDetail }) {
       element[1] !== ' ' && element[1] !== '' && element[1] !== null)));
   const ingredients = drinkAr.filter((element) => (
     element[0].includes('strIngredient') && element[1] !== null));
+
+  const favoriteRecipes = () => {
+    const favoriteRecipe = {
+      id: drinkDetail.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinkDetail.strCategory,
+      alcoholicOrNot: drinkDetail.strAlcoholic,
+      name: drinkDetail.strDrink,
+      image: drinkDetail.strDrinkThumb,
+    };
+    if (favorite === true) {
+      setFavorite(false);
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      setFavorite(true);
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify([favoriteRecipe]),
+      );
+    }
+  };
   return (
     <div>
       <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
@@ -53,7 +78,16 @@ export default function DrinkCardDetail({ drinkDetail }) {
           alt="share icon"
         />
       </button>
-      <button type="button" data-testid="favorite-btn">Favorite</button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ favoriteRecipes }
+      >
+        {favorite
+          ? (<img src={ black } alt="favorite" />)
+          : (<img src={ white } alt="not favorite" />)}
+
+      </button>
       <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
