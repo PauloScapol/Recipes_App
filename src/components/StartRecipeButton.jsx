@@ -4,15 +4,9 @@ export default function StartRecipeButton(type) {
   const recipeSituation = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const history = useHistory();
   const url = Object.values(type);
-  console.log(url[0]);
+  const id = url[0].split('/');
 
-  // const redirect = () => {
-  //   if (type.includes('meals')) {
-  //     history.push('/in-progress');
-  //   }
-  // };
-
-  if (recipeSituation) {
+  if (recipeSituation !== null && recipeSituation[id[2]]) {
     return (
       <div>
         <button
