@@ -5,12 +5,24 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState();
+  const [clickButton, setClickButton] = useState(false);
 
   useEffect(() => {
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     setFavoriteRecipes(recipes);
   }, []);
 
+  const copyUrl = (index) => {
+    setClickButton(true);
+    if (favoriteRecipes[index].type === 'drink') {
+      const url = `http://localhost:3000/drinks/${favoriteRecipes[index].id}`;
+      navigator.clipboard.writeText(url);
+    }
+    if (favoriteRecipes[index].type === 'meal') {
+      const url = `http://localhost:3000/meals/${favoriteRecipes[index].id}`;
+      navigator.clipboard.writeText(url);
+    }
+  };
   return (
     <div>
       <Header title="Favorite Recipes" showSearchIcon={ false } />
@@ -33,15 +45,19 @@ export default function FavoriteRecipes() {
             { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
           </p>
           <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
-          <div
+          <button
             data-testid={ `${index}-horizontal-share-btn` }
             src="../images/shareIcon.svg"
+            onClick={ () => copyUrl(index) }
           >
             <img
               src={ shareIcon }
               alt="share icon"
             />
-          </div>
+          </button>
+          {clickButton && (
+            <span> Link copied! </span>
+          )}
           <div
             data-testid={ `${index}-horizontal-favorite-btn` }
             src="../images/blackHeartIcon.svg"
