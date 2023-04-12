@@ -1,0 +1,33 @@
+.header-top {
+  align-items: center;
+  background-color: #fcdc36;
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.button-reset {
+  background-color: #fcdc36;
+  border: none;
+}
+
+.logoIcon {
+  margin-right: 10px;
+}
+
+.title-header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.title {
+  color: #41197f;
+  font-family: Epilogue , sans-serif;
+  font-size: 30px;
+  font-weight: 1000;
+  letter-spacing: 0.105em;
+  padding-top: 15px;
+  text-transform: uppercase;
+}
