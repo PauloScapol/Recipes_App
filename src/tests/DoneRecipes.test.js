@@ -5,6 +5,7 @@ import DoneRecipes from '../pages/DoneRecipes';
 describe('Teste de cobertura do componente DoneRecipes', () => {
   test('Renderiza o título da página', () => {
     render(<DoneRecipes />);
+
     const pageTitle = screen.getByTestId('page-title');
 
     expect(pageTitle).toHaveTextContent('Done Recipes');
@@ -12,6 +13,7 @@ describe('Teste de cobertura do componente DoneRecipes', () => {
 
   test('Renderiza os botões de filtro', () => {
     render(<DoneRecipes />);
+
     const allFilter = screen.getByTestId('filter-by-all-btn');
     const mealFilter = screen.getByTestId('filter-by-meal-btn');
     const drinkFilter = screen.getByTestId('filter-by-drink-btn');
@@ -28,7 +30,9 @@ describe('Teste de cobertura do componente DoneRecipes', () => {
       { id: 3, type: 'meal', name: 'Meal 2', image: '', nationality: '', category: '', tags: [], doneDate: '2022-04-07' },
       { id: 4, type: 'drink', name: 'Drink 2', image: '', alcoholicOrNot: '', doneDate: '2022-04-06' },
     ];
+
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
     render(
       <BrowserRouter>
         <DoneRecipes />
@@ -71,7 +75,9 @@ describe('Teste de cobertura do componente DoneRecipes', () => {
         tags: ['baking'],
         doneDate: '2022-04-09' },
     ];
+
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
     render(
       <BrowserRouter>
         <DoneRecipes />
@@ -101,7 +107,9 @@ describe('Teste de cobertura do componente DoneRecipes', () => {
         tags: [],
         doneDate: '2022-04-08' },
     ];
+
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
     render(
       <BrowserRouter>
         <DoneRecipes />
@@ -117,4 +125,42 @@ describe('Teste de cobertura do componente DoneRecipes', () => {
     const recipeAlcoholic = screen.getByText('alcoholic');
     expect(recipeAlcoholic).toBeInTheDocument();
   });
+
+  // NÃO FUNCIONA DE JEITO NENHUM
+  //
+  // test('O botão de Compartilhar está funcionando', async () => {
+  //   const doneRecipes = [
+  //     {
+  //       id: '1',
+  //       name: 'Spaghetti Carbonara',
+  //       image: 'https://www.example.com/spaghetti-carbonara.jpg',
+  //       type: 'meal',
+  //       category: 'Pasta',
+  //       area: 'Italian',
+  //       doneDate: '2022-04-11',
+  //       tags: ['Italian', 'Pasta', 'Easy'],
+  //       message: '',
+  //     },
+  //   ];
+  //   const localStorageMock = {
+  //     getItem: jest.fn(() => JSON.stringify(doneRecipes)),
+  //   };
+  //   Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+  //   render(
+  //     <BrowserRouter>
+  //       <DoneRecipes />
+  //     </BrowserRouter>,
+  //   );
+
+  //   const shareButton = screen.getByTestId('0-horizontal-share-btn');
+  //   fireEvent.click(shareButton);
+
+  //   const recipeUrl = `${window.location.origin}/meals/1`;
+  //   const clipboardContent = await navigator.clipboard.readText();
+  //   expect(clipboardContent).toEqual(recipeUrl);
+
+  //   const message = screen.getByText('Link copied!');
+  //   expect(message).toBeInTheDocument();
+  // });
 });

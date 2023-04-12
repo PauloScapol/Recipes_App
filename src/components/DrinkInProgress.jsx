@@ -82,6 +82,12 @@ export default function DrinkInProgress({ setRecipe }) {
 
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
+    if (doneRecipes.some((recipe) => recipe.id === drink.idDrink)) {
+      // alert('You have already finished this recipe!');
+      history.push('/done-recipes');
+      return;
+    }
+
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneRecipe]));
 
     history.push('/done-recipes');
