@@ -81,6 +81,12 @@ export default function MealInProgress({ setRecipe }) {
 
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
 
+    if (doneRecipes.some((recipe) => recipe.id === meal.idMeal)) {
+      // alert('You have already finished this recipe!');
+      history.push('/done-recipes');
+      return;
+    }
+
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, doneRecipe]));
 
     history.push('/done-recipes');
