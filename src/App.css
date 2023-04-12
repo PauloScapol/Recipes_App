@@ -38,8 +38,17 @@
 }
 
 footer {
+  background-color: #41197f;
   bottom: 0;
+  box-shadow: 0 0 15px 5px rgba(61, 2, 69, 0.45);
+  padding: 10px;
   position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.animation-icon:hover {
+  filter: contrast(200%) drop-shadow(0 0 2px rgba(0, 0, 0, 0.264));
 }
 
 .start-recipe-btn {
