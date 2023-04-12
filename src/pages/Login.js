@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import logoAppRecipes from '../images/logoAppRecipes.png';
 import tomates from '../images/tomates.png';
+import logoAppRecipes from '../images/logoAppRecipes.png';
 import '../styles/Login.css';
 
 export default function Login() {
