@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -67,20 +68,23 @@ export default function FavoriteRecipes() {
       </button>
       { drinkRecipes && drinkRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            width="200px"
-            data-testid={ `${index}-horizontal-image` }
-          />
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${recipe.nationality} - ${recipe.category}`}
-            {' '}
-            { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
-          </p>
-          <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ recipe.name }
+              width="200px"
+              data-testid={ `${index}-horizontal-image` }
+            />
+
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.nationality} - ${recipe.category}`}
+              {' '}
+              { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
+            </p>
+            <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          </Link>
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             src="../images/shareIcon.svg"
@@ -108,20 +112,23 @@ export default function FavoriteRecipes() {
       ))}
       { mealRecipes && mealRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            width="200px"
-            data-testid={ `${index}-horizontal-image` }
-          />
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${recipe.nationality} - ${recipe.category}`}
-            {' '}
-            { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
-          </p>
-          <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ recipe.name }
+              width="200px"
+              data-testid={ `${index}-horizontal-image` }
+            />
+
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.nationality} - ${recipe.category}`}
+              {' '}
+              { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
+            </p>
+            <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          </Link>
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             src="../images/shareIcon.svg"
@@ -151,20 +158,22 @@ export default function FavoriteRecipes() {
       && mealRecipes === null
       && drinkRecipes === null) && favoriteRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            width="200px"
-            data-testid={ `${index}-horizontal-image` }
-          />
-          <p
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${recipe.nationality} - ${recipe.category}`}
-            {' '}
-            { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
-          </p>
-          <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ recipe.name }
+              width="200px"
+              data-testid={ `${index}-horizontal-image` }
+            />
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.nationality} - ${recipe.category}`}
+              {' '}
+              { recipe.type === 'drink' && `${recipe.alcoholicOrNot}`}
+            </p>
+            <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          </Link>
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             src="../images/shareIcon.svg"
