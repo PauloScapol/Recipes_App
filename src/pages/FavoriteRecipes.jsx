@@ -23,6 +23,13 @@ export default function FavoriteRecipes() {
       navigator.clipboard.writeText(url);
     }
   };
+
+  const removeFavorite = (recipeName) => {
+    const recipesFiltered = favoriteRecipes.filter((e) => e.name !== recipeName);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFiltered));
+    setFavoriteRecipes(recipesFiltered);
+    console.log(recipesFiltered);
+  };
   return (
     <div>
       <Header title="Favorite Recipes" showSearchIcon={ false } />
@@ -58,15 +65,16 @@ export default function FavoriteRecipes() {
           {clickButton && (
             <span> Link copied! </span>
           )}
-          <div
+          <button
             data-testid={ `${index}-horizontal-favorite-btn` }
             src="../images/blackHeartIcon.svg"
+            onClick={ () => removeFavorite(recipe.name) }
           >
             <img
               src={ blackHeartIcon }
               alt="favorite icon"
             />
-          </div>
+          </button>
         </div>
       ))}
     </div>
