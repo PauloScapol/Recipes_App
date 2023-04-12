@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StartRecipeButton from './StartRecipeButton';
 import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
@@ -18,27 +18,44 @@ export default function DrinkCardDetail({ drinkDetail }) {
   const ingredients = drinkAr.filter((element) => (
     element[0].includes('strIngredient') && element[1] !== null));
 
-  const favoriteRecipes = () => {
-    const favoriteRecipe = {
-      id: drinkDetail.idDrink,
-      type: 'drink',
-      nationality: '',
-      category: drinkDetail.strCategory,
-      alcoholicOrNot: drinkDetail.strAlcoholic,
-      name: drinkDetail.strDrink,
-      image: drinkDetail.strDrinkThumb,
-    };
-    if (favorite === true) {
-      setFavorite(false);
-      localStorage.removeItem('favoriteRecipes');
-    } else {
+  function handleFavorite() { // Função para lidar com o clique no botão de favoritar
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === drinkDetail.idDrink);
+
+    if (!isRecipeFavorited) {
+      const favoriteRecipe = {
+        id: drinkDetail.idDrink,
+        name: drinkDetail.strDrink,
+        image: drinkDetail.strDrinkThumb,
+        category: drinkDetail.strCategory,
+        alcoholicOrNot: drinkDetail.strAlcoholic,
+        nationality: '',
+        type: 'drink',
+      };
+
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, favoriteRecipe]));
+
       setFavorite(true);
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([favoriteRecipe]),
-      );
+    } else {
+      const filteredFavoriteRecipes = favoriteRecipes
+        .filter((recipe) => recipe.id !== drinkDetail.idDrink);
+
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavoriteRecipes));
+
+      setFavorite(false);
     }
-  };
+  }
+
+  useEffect(() => { // Efeito para verificar se a receita já foi favoritada anteriormente
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === drinkDetail.idDrink);
+
+    setFavorite(isRecipeFavorited);
+  }, [drinkDetail.idDrink]);
+
   return (
     <div>
       <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
@@ -80,12 +97,11 @@ export default function DrinkCardDetail({ drinkDetail }) {
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
-        onClick={ favoriteRecipes }
+        onClick={ handleFavorite }
       >
         {favorite
-          ? (<img src={ black } alt="favorite" />)
-          : (<img src={ white } alt="not favorite" />)}
+          ? (<img data-testid="favorite-btn" src={ black } alt="favorite" />)
+          : (<img data-testid="favorite-btn" src={ white } alt="not favorite" />)}
 
       </button>
       <StartRecipeButton type={ history.location.pathname } />
@@ -99,7 +115,7 @@ DrinkCardDetail.propTypes = {
     strCategory: PropTypes.string,
     strAlcoholic: PropTypes.string,
     strDrinkThumb: PropTypes.string,
-    strMeal: PropTypes.string,
+    // strMeal: PropTypes.string,
     strInstructions: PropTypes.string,
   }),
 }.isRequired;

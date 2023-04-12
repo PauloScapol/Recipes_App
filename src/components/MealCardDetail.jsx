@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StartRecipeButton from './StartRecipeButton';
 import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
@@ -19,27 +19,43 @@ export default function MealCardDetail({ mealDetail }) {
   const ingredients = mealAr.filter((element) => (
     element[0].includes('strIngredient') && (element[1] !== '' && element[1] !== null)));
 
-  const favoriteRecipes = () => {
-    const favoriteRecipe = {
-      id: mealDetail.idMeal,
-      type: 'meal',
-      nationality: mealDetail.strArea,
-      category: mealDetail.strCategory,
-      alcoholicOrNot: '',
-      name: mealDetail.strMeal,
-      image: mealDetail.strMealThumb,
-    };
-    if (favorite === true) {
-      setFavorite(false);
-      localStorage.removeItem('favoriteRecipes');
-    } else {
+  function handleFavorite() { // Função para lidar com o clique no botão de favoritar
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === mealDetail.idMeal);
+
+    if (!isRecipeFavorited) {
+      const favoriteRecipe = {
+        id: mealDetail.idMeal,
+        name: mealDetail.strMeal,
+        image: mealDetail.strMealThumb,
+        category: mealDetail.strCategory,
+        alcoholicOrNot: '',
+        nationality: mealDetail.strArea,
+        type: 'meal',
+      };
+
+      localStorage
+        .setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, favoriteRecipe]));
+
       setFavorite(true);
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify([favoriteRecipe]),
-      );
+    } else {
+      const filteredFavoriteRecipes = favoriteRecipes
+        .filter((recipe) => recipe.id !== mealDetail.idMeal);
+
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavoriteRecipes));
+
+      setFavorite(false);
     }
-  };
+  }
+
+  useEffect(() => { // Efeito para verificar se a receita já foi favoritada anteriormente
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isRecipeFavorited = favoriteRecipes
+      .some((recipe) => recipe.id === mealDetail.idMeal);
+
+    setFavorite(isRecipeFavorited);
+  }, [mealDetail.idMeal]);
 
   return (
     <div>
@@ -79,12 +95,11 @@ export default function MealCardDetail({ mealDetail }) {
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
-        onClick={ favoriteRecipes }
+        onClick={ handleFavorite }
       >
         {favorite
-          ? (<img src={ black } alt="favorite" />)
-          : (<img src={ white } alt="not favorite" />)}
+          ? (<img data-testid="favorite-btn" src={ black } alt="favorite" />)
+          : (<img data-testid="favorite-btn" src={ white } alt="not favorite" />)}
 
       </button>
       <StartRecipeButton type={ history.location.pathname } />
