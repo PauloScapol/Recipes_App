@@ -9,6 +9,7 @@ describe('first', () => {
   const btnDone = 'profile-done-btn';
   const btnFavorite = 'profile-favorite-btn';
   const btnLogout = 'profile-logout-btn';
+
   beforeEach(() => {
     window.localStorage.clear();
   });
@@ -18,6 +19,7 @@ describe('first', () => {
     const elementEmail = screen.getByTestId(emailPofile);
     expect(elementEmail).toBeInTheDocument();
   });
+
   test('testa se existe o botão Done Recipes na tela e se direciona para a tela de receitas feitas', async () => {
     const { history } = renderWithRouter(<Profile />);
     const doneBtn = screen.getByTestId(btnDone);
@@ -28,6 +30,7 @@ describe('first', () => {
       expect(pathname).toBe('/done-recipes');
     });
   });
+
   test('testa se existe o botão favorite recipes e se direciona para a rota certa', () => {
     const { history } = renderWithRouter(<Profile />);
     const favoriteBtn = screen.getByTestId(btnFavorite);
@@ -38,6 +41,7 @@ describe('first', () => {
       expect(pathname).toBe('/favorite-recipes');
     });
   });
+
   test('testa se existe o botão "logout" e se direciona para a tela de login', async () => {
     // beforeEach(() => {
     //   window.localStorage.clear();
@@ -52,6 +56,7 @@ describe('first', () => {
       // expect(window.localStorage.length).toBe(0);
     });
   });
+
   test('testa se o logout limpa o localStorage', () => {
     renderWithRouter(<Profile />);
     const logoutBtn = screen.getByTestId(btnLogout);
@@ -60,8 +65,19 @@ describe('first', () => {
 
     expect(window.localStorage.length).toBe(0);
   });
-  // test('should first', () => {
-  //   renderWithRouter(<Profile />);
 
-  // });
+  test('exibe o email do usuário se ele estiver presente no localStorage', () => {
+    const testEmail = 'test@test.com';
+    window.localStorage.setItem('user', JSON.stringify({ email: testEmail }));
+    renderWithRouter(<Profile />);
+    const elementEmail = screen.getByTestId(emailPofile);
+    expect(elementEmail).toHaveTextContent(testEmail);
+  });
+
+  test('não exibe nada se o email do usuário não estiver presente no localStorage', () => {
+    window.localStorage.removeItem('user');
+    renderWithRouter(<Profile />);
+    const elementEmail = screen.getByTestId(emailPofile);
+    expect(elementEmail.textContent).toBe('');
+  });
 });
