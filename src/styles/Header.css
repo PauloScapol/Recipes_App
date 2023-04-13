@@ -11,10 +11,6 @@
   border: none;
 }
 
-.logoIcon {
-  margin-right: 10px;
-}
-
 .title-header {
   align-items: center;
   display: flex;
@@ -29,6 +25,7 @@
   font-weight: 1000;
   letter-spacing: 0.105em;
   padding-top: 15px;
+  text-align: center;
   text-transform: uppercase;
 }
 
