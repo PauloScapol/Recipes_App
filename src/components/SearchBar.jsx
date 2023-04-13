@@ -70,49 +70,47 @@ export default function SearchBar({ inputSearch, title }) {
   };
 
   return (
-    <div className="searchBar_container">
-      <div className="searchBar_nav_container">
-        <div>
-          <label htmlFor="ingredientSeach" className="searchBar_label">
-            <input
-              type="radio"
-              id="ingredientSeach"
-              data-testid="ingredient-search-radio"
-              name="radioButton"
-              onClick={ ({ target }) => setSearchType(target.id) }
-            />
-            <span>Ingredient</span>
-          </label>
-          <label htmlFor="nameSearch" className="searchBar_label">
-            <input
-              type="radio"
-              id="nameSearch"
-              data-testid="name-search-radio"
-              name="radioButton"
-              onClick={ ({ target }) => setSearchType(target.id) }
-            />
-            <span>Name</span>
-          </label>
-          <label htmlFor="firstLetterSearch" className="searchBar_label">
-            <input
-              type="radio"
-              id="firstLetterSearch"
-              data-testid="first-letter-search-radio"
-              name="radioButton"
-              onClick={ ({ target }) => setSearchType(target.id) }
-            />
-            <span>First Letter</span>
-          </label>
-        </div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ searchClick }
-          className="searchBar_btn"
-        >
-          SEARCH
-        </button>
+    <div className="searchBar_nav_container">
+      <div>
+        <label htmlFor="ingredientSeach" className="searchBar_label">
+          <input
+            type="radio"
+            id="ingredientSeach"
+            data-testid="ingredient-search-radio"
+            name="radioButton"
+            onClick={ ({ target }) => setSearchType(target.id) }
+          />
+          <span>Ingredient</span>
+        </label>
+        <label htmlFor="nameSearch" className="searchBar_label">
+          <input
+            type="radio"
+            id="nameSearch"
+            data-testid="name-search-radio"
+            name="radioButton"
+            onClick={ ({ target }) => setSearchType(target.id) }
+          />
+          <span>Name</span>
+        </label>
+        <label htmlFor="firstLetterSearch" className="searchBar_label">
+          <input
+            type="radio"
+            id="firstLetterSearch"
+            data-testid="first-letter-search-radio"
+            name="radioButton"
+            onClick={ ({ target }) => setSearchType(target.id) }
+          />
+          <span>First Letter</span>
+        </label>
       </div>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ searchClick }
+        className="searchBar_btn"
+      >
+        SEARCH
+      </button>
     </div>
   );
 }

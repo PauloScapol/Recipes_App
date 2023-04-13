@@ -61,21 +61,6 @@ export default function Header({ title, showSearchIcon }) {
               alt="profile icon"
             />
           </button>
-
-          {searchFood && (
-            <form>
-              <input
-                type="text"
-                placeholder="Search"
-                data-testid="search-input"
-                value={ searchInput }
-                onChange={ ({ target }) => setSearchInput(target.value) }
-              />
-              <Provider store={ store }>
-                <SearchBar inputSearch={ searchInput } title={ title } />
-              </Provider>
-            </form>
-          )}
         </div>
       </div>
       <div className="title-header">
@@ -84,6 +69,21 @@ export default function Header({ title, showSearchIcon }) {
           : (<img src={ drinkIcon } alt="Drinks" />)}
         <h1 className="title" data-testid="page-title">{title}</h1>
       </div>
+      {searchFood && (
+        <div className="searchBar_container">
+          <input
+            type="text"
+            placeholder="Search"
+            data-testid="search-input"
+            value={ searchInput }
+            className="searchBar__input"
+            onChange={ ({ target }) => setSearchInput(target.value) }
+          />
+          <Provider store={ store }>
+            <SearchBar inputSearch={ searchInput } title={ title } />
+          </Provider>
+        </div>
+      )}
     </section>
   );
 }

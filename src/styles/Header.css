@@ -31,3 +31,36 @@
   padding-top: 15px;
   text-transform: uppercase;
 }
+
+.searchBar_container {
+  align-items: center;
+  background: rgb(65, 25, 127);
+  border-radius: 0 0 20px 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  width: 90%;
+}
+
+.searchBar__input {
+  background: white;
+  border: 1px solid rgb(177, 177, 177);
+  border-radius: 10px;
+  color: rgb(121, 125, 134);
+  font-size: 14px;
+  font-weight: 300;
+  height: 40px;
+  line-height: 14px;
+  margin-top: -7px;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.searchBar__input::placeholder {
+  color: rgb(121, 125, 134);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 14px;
+}
