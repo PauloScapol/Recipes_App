@@ -52,24 +52,25 @@ footer {
 }
 
 .start-recipe-btn {
-  bottom: 0;
-  height: 40px;
+  background-color: #fcc436;
+  border: solid 1px #fcc436;
   border-radius: 5px;
-  background-color: #FCC436;
-  border: solid 1px #FCC436;
+  bottom: 0;
   color: white;
   font-size: 20px;
-  font-weight: bold;
-  width: 336px;
+  font-weight: 700;
+  height: 40px;
   text-transform: uppercase;
+  width: 336px;
 }
 
 .btn-start-div {
   display: flex;
-  margin-top: 20px;
-  margin-bottom: 15px;
   justify-content: center;
+  margin-bottom: 15px;
+  margin-top: 20px;
 }
+
 @keyframes shake {
 
   0% {

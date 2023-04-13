@@ -1,0 +1,17 @@
+.profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container label {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container label button {
+  background-color: white;
+  border: none;
+  height: 84px;
+  width: 290px;
+}
