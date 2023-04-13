@@ -8,6 +8,7 @@ import mealIcon from '../images/foods.svg';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/Favorite.css';
+import MenuAlls from '../components/MenuAlls';
 
 export default function DoneRecipes() {
   const [recipes, setRecipes] = useState([]);
@@ -40,50 +41,10 @@ export default function DoneRecipes() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <div>
         <Header title="Done Recipes" showSearchIcon={ false } />
-        <div className="favorites-menu">
-          <button
-            data-testid="filter-by-all-btn"
-            type="button"
-            name="all"
-            onClick={ handleFilterClick }
-            disabled={ filterType === 'all' }
-            className="buttton-reset-favorite"
-          >
-            <img
-              src={ allIcon }
-              alt="all-icon"
-            />
-          </button>
-          <button
-            data-testid="filter-by-meal-btn"
-            type="button"
-            name="meal"
-            onClick={ handleFilterClick }
-            disabled={ filterType === 'meal' }
-            className="buttton-reset-favorite"
-          >
-            <img
-              src={ mealIcon }
-              alt="meal-icon"
-            />
-          </button>
-          <button
-            data-testid="filter-by-drink-btn"
-            type="button"
-            name="drink"
-            onClick={ handleFilterClick }
-            disabled={ filterType === 'drink' }
-            className="buttton-reset-favorite"
-          >
-            <img
-              src={ drinkIcon }
-              alt="drink-icon"
-            />
-          </button>
-        </div>
+        <MenuAlls filter={ handleFilterClick } />
         <div>
           {filteredRecipes.map((recipe, index) => (
             <div key={ recipe.id } className="recipes-favorites">
@@ -188,6 +149,6 @@ export default function DoneRecipes() {
         </div>
       </div>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
