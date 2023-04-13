@@ -22,6 +22,10 @@ export default function Header({ title, showSearchIcon }) {
     history.push('/profile');
   };
 
+  const navigateHome = () => {
+    history.push('/meals');
+  };
+
   const handleClick = () => {
     if (searchFood === true) {
       setSearchFood(false);
@@ -33,10 +37,10 @@ export default function Header({ title, showSearchIcon }) {
   return (
     <section>
       <div className="header-top">
-        <div>
-          <img src={ logoIcon } className="logoIcon" alt="icon logo" />
+        <button onClick={ navigateHome } className="button-reset">
+          <img src={ logoIcon } alt="icon logo" />
           <img src={ logoRecipes } alt="Recipes App" />
-        </div>
+        </button>
         <div>
           {showSearchIcon && (
             <button
