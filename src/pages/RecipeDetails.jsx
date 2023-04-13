@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import DrinkCardDetail from '../components/DrinkCardDetail';
 import MealCardDetail from '../components/MealCardDetail';
-import Recomendations from '../components/Recomendations';
 
 export default function RecipeDetails({ match: { params } }) {
   const [meal, setMeal] = useState(null);
@@ -38,7 +37,6 @@ export default function RecipeDetails({ match: { params } }) {
     return (
       <div>
         <DrinkCardDetail drinkDetail={ drink } />
-        <Recomendations />
       </div>
     );
   }
@@ -46,7 +44,6 @@ export default function RecipeDetails({ match: { params } }) {
     return (
       <div>
         <MealCardDetail mealDetail={ meal } />
-        <Recomendations />
       </div>
     );
   }

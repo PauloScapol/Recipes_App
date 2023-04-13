@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Recomendations from './Recomendations';
 import StartRecipeButton from './StartRecipeButton';
 import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
@@ -104,6 +105,7 @@ export default function DrinkCardDetail({ drinkDetail }) {
           : (<img data-testid="favorite-btn" src={ white } alt="not favorite" />)}
 
       </button>
+      <Recomendations />
       <StartRecipeButton type={ history.location.pathname } />
     </div>
   );

@@ -8,7 +8,7 @@ export default function StartRecipeButton(type) {
 
   if (recipeSituation && !recipeSituation[id[2]]) {
     return (
-      <div>
+      <div className="btn-start-div">
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
@@ -19,7 +19,7 @@ export default function StartRecipeButton(type) {
       </div>
     );
   } return (
-    <div>
+    <div className="btn-start-div">
       <button
         data-testid="start-recipe-btn"
         className="start-recipe-btn"
