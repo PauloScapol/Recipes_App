@@ -53,9 +53,23 @@ footer {
 
 .start-recipe-btn {
   bottom: 0;
-  position: fixed;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #FCC436;
+  border: solid 1px #FCC436;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  width: 336px;
+  text-transform: uppercase;
 }
 
+.btn-start-div {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
 @keyframes shake {
 
   0% {

@@ -23,64 +23,49 @@ section .slider {
   height: auto;
   position: relative;
   text-align: center;
-  transition: 1s;
-  width: 25%;
+  justify-content: space-around;
 }
 
 .slide-box img {
-  margin-left: 10px;
-  margin-right: 20px;
-  width: 150px;
+  height: 135px;
+  width: 160px;
+  border-radius: 5px;
 }
 
-.nav-manual, .nav-auto {
-  display: flex;
-  justify-content: center;
-  margin-top: 55%;
-  position: absolute;
-  width: 100%;
-
-}
-
-.nav-manual .manual-btn, .nav-auto div {
-  border: 1px solid red;
-  border-radius: 50px;
-  padding: 10px;
-
-}
-
-.nav-manual .manual-btn:not( :last-child ), .nav-auto div:not( :last-child ) {
-  margin-right: 10px;
-}
-
-/* #radio1:checked ~ .nav-auto .auto-btn1 {
-  background-color: red;
-}
-
-#radio2:checked ~ .nav-auto .auto-btn2 {
-  background-color: red;
-}
-
-#radio3:checked ~ .nav-auto .auto-btn3 {
-  background-color: red;
-}
-
-#radio2:checked ~ .primeiro {
-  margin-left: -25%;
-}
-
-#radio3:checked ~ .primeiro {
-  margin-left: -50%;
-} */
-
-.slider-content input:checked ~ .primeiro {
-  margin-left: -25%;
-}
-
-.slider h3 {
-  font-size: 20px;
-  font-style: normal;
+.carousel-title {
   font-weight: 700;
-  line-height: 20px;
-  padding: 20px 15px 0.1px;
+  size: 20px;
+  margin-left: 23px;
+  margin-top: 25px;
+}
+
+.re-card {
+  margin-top: 10px;
+  width: 163px;
+  height: 166px;
+  border: solid 0.50px #B1B1B1;
+  border-radius: 5px;
+}
+
+.re-card p {
+  font-size: 12px;
+  text-align: left;
+  padding-left: 14px;
+  padding-top: 6px;
+}
+
+.btns-carousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.btns-carousel button {
+  flex-grow: 1;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+  background-color: #FCC436;
+  border: solid 1px #FCC436;
+  color: white;
+
 }
