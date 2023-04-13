@@ -1,15 +1,16 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Meals from '../components/Meals';
-import Drinks from '../components/Drinks';
 import mockChickenFetch from './mocks/chickenData';
 import mockSoupFetch from './mocks/soupData';
 import mockletterYFetch from './mocks/yMealsData';
 import mockEverClearFetch from './mocks/everclearData';
 import mockAbileneFetch from './mocks/abileneData';
 import mockletterYDrksFetch from './mocks/yDrinksData';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
+import App from '../App';
 
 const testIdSearchTopBtn = 'search-top-btn';
 const testIdSearchInput = 'search-input';
@@ -17,10 +18,12 @@ const testIdSearchIngredientRadio = 'ingredient-search-radio';
 const testIdSearchNameRadio = 'name-search-radio';
 const testIdSearchFirstLetterRadio = 'first-letter-search-radio';
 const testIdSearchButton = 'exec-search-btn';
+// const testIdRecipeTitle = 'recipe-title';
+// const testIdRecipeCard = '1-recipe-card';
 
 describe('Testes de elementos do component SearchBar.js', () => {
   test('Testa se os elementos da barra de busca estão presentes', async () => {
-    render(<Meals />);
+    renderWithRouterAndRedux(<Meals />);
 
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
@@ -48,9 +51,10 @@ describe('Testa busca pela radio ingredient de SearchBar.js', () => {
     global.fetch = jest.fn(mockChickenFetch);
   });
 
-  test('Meals: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', () => {
+  test('Meals: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Meals />);
+      history.push('/meals');
     });
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
@@ -65,8 +69,11 @@ describe('Testa busca pela radio ingredient de SearchBar.js', () => {
 
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken');
+
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken');
+    });
   });
 });
 
@@ -75,10 +82,12 @@ describe('Testa busca pela radio Name de SearchBar.js', () => {
     global.fetch = jest.fn(mockSoupFetch);
   });
 
-  test('Meals: Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome', () => {
+  test('Meals: Se o radio selecionado for Name, a busca na API é feita corretamente pelo nome', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Meals />);
+      history.push('/meals');
     });
+
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
     userEvent.click(searchTopBtn);
@@ -93,8 +102,10 @@ describe('Testa busca pela radio Name de SearchBar.js', () => {
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
 
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=soup');
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=soup');
+    });
   });
 });
 
@@ -103,10 +114,12 @@ describe('Testa busca pela radio First Letter de SearchBar.js', () => {
     global.fetch = jest.fn(mockletterYFetch);
   });
 
-  test('Meals: Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra', () => {
+  test('Meals: Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Meals />);
+      history.push('/meals');
     });
+
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
     userEvent.click(searchTopBtn);
@@ -121,8 +134,10 @@ describe('Testa busca pela radio First Letter de SearchBar.js', () => {
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
 
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=y');
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=y');
+    });
   });
 });
 
@@ -131,9 +146,10 @@ describe('Testa busca pela radio ingredient de SearchBar.js', () => {
     global.fetch = jest.fn(mockEverClearFetch);
   });
 
-  test('Drinks: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', () => {
+  test('Drinks: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Drinks />);
+      history.push('/drinks');
     });
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
@@ -148,8 +164,11 @@ describe('Testa busca pela radio ingredient de SearchBar.js', () => {
 
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=everclear');
+
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=everclear');
+    });
   });
 });
 
@@ -158,9 +177,10 @@ describe('Testa busca pela radio Name de SearchBar.js', () => {
     global.fetch = jest.fn(mockAbileneFetch);
   });
 
-  test('Drinks: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', () => {
+  test('Drinks: Se o radio selecionado for Ingredient, a busca na API é feita corretamente pelo ingrediente', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Drinks />);
+      history.push('/drinks');
     });
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
@@ -175,8 +195,11 @@ describe('Testa busca pela radio Name de SearchBar.js', () => {
 
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=abilene');
+
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=abilene');
+    });
   });
 });
 
@@ -185,9 +208,10 @@ describe('Testa busca pela radio First Letter de SearchBar.js', () => {
     global.fetch = jest.fn(mockletterYDrksFetch);
   });
 
-  test('Drinks: Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra', () => {
+  test('Drinks: Se o radio selecionado for First letter, a busca na API é feita corretamente pela primeira letra', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Drinks />);
+      history.push('/drinks');
     });
     const searchTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searchTopBtn).toBeInTheDocument();
@@ -203,15 +227,18 @@ describe('Testa busca pela radio First Letter de SearchBar.js', () => {
     const searchButton = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchButton);
 
-    expect(fetch).toBeCalled();
-    expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=y');
+    waitFor(() => {
+      expect(fetch).toBeCalled();
+      expect(fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=y');
+    });
   });
 });
 
 describe('Testa alert (Your search must have only 1 (one) character)', () => {
-  test('Meals: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
+  test('Meals: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Meals />);
+      history.push('/meals');
     });
     const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
@@ -229,16 +256,20 @@ describe('Testa alert (Your search must have only 1 (one) character)', () => {
     const searchbtn = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchbtn);
 
-    expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+    waitFor(() => {
+      expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+    });
   });
 });
 
 describe('Testa alert (Your search must have only 1 (one) character)', () => {
-  test('Drinks: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', () => {
+  test('Drinks: Se o radio selecionado for First letter e a busca na API for feita com mais de uma letra, deve-se exibir um alert', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     act(() => {
-      render(<Drinks />);
+      history.push('/drinks');
     });
-    const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const alert = jest.spyOn(window, 'alert').mockImplementation(() => { });
 
     const searcTopBtn = screen.getByTestId(testIdSearchTopBtn);
     expect(searcTopBtn).toBeInTheDocument();
@@ -254,6 +285,8 @@ describe('Testa alert (Your search must have only 1 (one) character)', () => {
     const searchbtn = screen.getByTestId(testIdSearchButton);
     userEvent.click(searchbtn);
 
-    expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+    waitFor(() => {
+      expect(alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
+    });
   });
 });

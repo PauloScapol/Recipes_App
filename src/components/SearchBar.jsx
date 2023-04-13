@@ -10,6 +10,7 @@ import {
   searchDrinkName,
   searchDrinkFirstLetter,
 } from '../redux/actions';
+import '../styles/SearchBar.css';
 
 export default function SearchBar({ inputSearch, title }) {
   const [searchType, setSearchType] = useState('');
@@ -69,9 +70,9 @@ export default function SearchBar({ inputSearch, title }) {
   };
 
   return (
-    <div>
+    <div className="searchBar_nav_container">
       <div>
-        <label htmlFor="ingredientSeach">
+        <label htmlFor="ingredientSeach" className="searchBar_label">
           <input
             type="radio"
             id="ingredientSeach"
@@ -81,7 +82,7 @@ export default function SearchBar({ inputSearch, title }) {
           />
           <span>Ingredient</span>
         </label>
-        <label htmlFor="nameSearch">
+        <label htmlFor="nameSearch" className="searchBar_label">
           <input
             type="radio"
             id="nameSearch"
@@ -91,7 +92,7 @@ export default function SearchBar({ inputSearch, title }) {
           />
           <span>Name</span>
         </label>
-        <label htmlFor="firstLetterSearch">
+        <label htmlFor="firstLetterSearch" className="searchBar_label">
           <input
             type="radio"
             id="firstLetterSearch"
@@ -106,6 +107,7 @@ export default function SearchBar({ inputSearch, title }) {
         type="button"
         data-testid="exec-search-btn"
         onClick={ searchClick }
+        className="searchBar_btn"
       >
         SEARCH
       </button>
