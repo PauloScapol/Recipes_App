@@ -6,6 +6,12 @@ import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
 import white from '../images/whiteHeartIcon.svg';
 import black from '../images/blackHeartIcon.svg';
+import beef from '../images/mealCategories/beef.png';
+import breakfast from '../images/mealCategories/breakfast.png';
+import chicken from '../images/mealCategories/chicken.png';
+import dessert from '../images/mealCategories/dessert.png';
+import goat from '../images/mealCategories/goat.png';
+import '../styles/RecipeCardDetails.css';
 
 export default function MealCardDetail({ mealDetail }) {
   const [clickButton, setClickButton] = useState(false);
@@ -57,29 +63,82 @@ export default function MealCardDetail({ mealDetail }) {
     setFavorite(isRecipeFavorited);
   }, [mealDetail.idMeal]);
 
+  let categoryIcon;
+
+  switch (mealDetail.strCategory) {
+  case 'Beef':
+    categoryIcon = beef;
+    break;
+
+  case 'Breakfast':
+    categoryIcon = breakfast;
+    break;
+
+  case 'Chicken':
+    categoryIcon = chicken;
+    break;
+
+  case 'Dessert':
+    categoryIcon = dessert;
+    break;
+
+  case 'Goat':
+    categoryIcon = goat;
+    break;
+
+  default:
+  }
+
   return (
     <div>
-      <h1 data-testid="recipe-title">{mealDetail.strMeal}</h1>
-      <h3 data-testid="recipe-category">{mealDetail.strCategory}</h3>
-      <img
-        src={ mealDetail.strMealThumb }
-        alt={ mealDetail.strMeal }
-        data-testid="recipe-photo"
-        style={ { width: '250px' } }
-      />
-      <p data-testid="instructions">{mealDetail.strInstructions}</p>
-      <h3>Ingredientes:</h3>
-      {ingredients.map((ingredient, index) => (
-        <li
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ index }
-        >
-          {ingredient[1]}
-          {' '}
-          {quantity[index][1]}
-        </li>
-      ))}
-      <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
+      <div className="titleContainer">
+        <h1 data-testid="recipe-title" className="recipeTitle">{mealDetail.strMeal}</h1>
+      </div>
+
+      <img className="icon" src={ categoryIcon } alt="Category icon" />
+
+      <h3
+        data-testid="recipe-category"
+        className="recipeCategory"
+      >
+        {mealDetail.strCategory}
+      </h3>
+
+      <div className="image-container">
+        <img
+          src={ mealDetail.strMealThumb }
+          alt={ mealDetail.strMeal }
+          data-testid="recipe-photo"
+          className="recipePhoto"
+        />
+      </div>
+
+      <div className="ingredientsContainer">
+        <h3>Ingredientes:</h3>
+        <div className="ingredientsList">
+          {ingredients.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              {ingredient[1]}
+              {' '}
+              {quantity[index][1]}
+            </li>
+          ))}
+        </div>
+      </div>
+
+      <div className="instructionsContainer">
+        <h3>Instruções:</h3>
+        <p data-testid="instructions">{mealDetail.strInstructions}</p>
+      </div>
+
+      <div className="videoContainer">
+        <h3>Video:</h3>
+        <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${embedURL[1]}` } title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture; web-share" />
+      </div>
+
       {clickButton && (
         <span> Link copied! </span>
       )}
@@ -87,21 +146,25 @@ export default function MealCardDetail({ mealDetail }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => copyUrl(setClickButton) }
+        className="shareBtn"
       >
         <img
           src={ shareIcon }
           alt="share icon"
         />
       </button>
+
       <button
         type="button"
         onClick={ handleFavorite }
+        className="favoriteBtn"
       >
         {favorite
           ? (<img data-testid="favorite-btn" src={ black } alt="favorite" />)
           : (<img data-testid="favorite-btn" src={ white } alt="not favorite" />)}
 
       </button>
+
       <StartRecipeButton type={ history.location.pathname } />
     </div>
   );

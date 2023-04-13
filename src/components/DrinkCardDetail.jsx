@@ -6,6 +6,12 @@ import copyUrl from '../utils/copyUrl';
 import shareIcon from '../images/shareIcon.svg';
 import white from '../images/whiteHeartIcon.svg';
 import black from '../images/blackHeartIcon.svg';
+import ordinary from '../images/drinkCategories/ordinaryDrink.png';
+import cocktail from '../images/drinkCategories/cocktail.png';
+import shake from '../images/drinkCategories/shake.png';
+import other from '../images/drinkCategories/otherUnknown.png';
+import cocoa from '../images/drinkCategories/cocoa.png';
+import '../styles/RecipeCardDetails.css';
 
 export default function DrinkCardDetail({ drinkDetail }) {
   const [clickButton, setClickButton] = useState(false);
@@ -56,32 +62,76 @@ export default function DrinkCardDetail({ drinkDetail }) {
     setFavorite(isRecipeFavorited);
   }, [drinkDetail.idDrink]);
 
+  let categoryIcon;
+
+  switch (drinkDetail.strCategory) {
+  case 'Ordinary Drink':
+    categoryIcon = ordinary;
+    break;
+
+  case 'Cocktail':
+    categoryIcon = cocktail;
+    break;
+
+  case 'Shake':
+    categoryIcon = shake;
+    break;
+
+  case 'Other / Unknown':
+    categoryIcon = other;
+    break;
+
+  case 'Cocoa':
+    categoryIcon = cocoa;
+    break;
+
+  default:
+  }
+
   return (
     <div>
-      <h1 data-testid="recipe-title">{drinkDetail.strDrink}</h1>
-      <h3 data-testid="recipe-category">
+      <div className="titleContainer">
+        <h1 data-testid="recipe-title" className="recipeTitle">{drinkDetail.strDrink}</h1>
+      </div>
+
+      <img className="icon" src={ categoryIcon } alt="Category icon" />
+
+      <h3 data-testid="recipe-category" className="recipeCategory">
         {drinkDetail.strCategory}
         {' '}
         {drinkDetail.strAlcoholic}
       </h3>
-      <img
-        src={ drinkDetail.strDrinkThumb }
-        alt={ drinkDetail.strDrink }
-        data-testid="recipe-photo"
-        style={ { width: '250px' } }
-      />
-      <p data-testid="instructions">{drinkDetail.strInstructions}</p>
-      <h3>Ingredientes:</h3>
-      {ingredients.map((ingredient, index) => (
-        <li
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ index }
-        >
-          {`${ingredient[1]}`}
-          { ' ' }
-          { quantity[index] !== undefined ? quantity[index][1] : ''}
-        </li>
-      ))}
+
+      <div className="image-container">
+        <img
+          src={ drinkDetail.strDrinkThumb }
+          alt={ drinkDetail.strDrink }
+          data-testid="recipe-photo"
+          className="recipePhoto"
+        />
+      </div>
+
+      <div className="ingredientsContainer">
+        <h3>Ingredientes:</h3>
+        <div className="ingredientsList">
+          {ingredients.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              {`${ingredient[1]}`}
+              { ' ' }
+              { quantity[index] !== undefined ? quantity[index][1] : ''}
+            </li>
+          ))}
+        </div>
+      </div>
+
+      <div className="instructionsContainer">
+        <h3>Instruções:</h3>
+        <p data-testid="instructions">{drinkDetail.strInstructions}</p>
+      </div>
+
       {clickButton && (
         <span> Link copied! </span>
       )}
@@ -89,21 +139,25 @@ export default function DrinkCardDetail({ drinkDetail }) {
         type="button"
         data-testid="share-btn"
         onClick={ () => copyUrl(setClickButton) }
+        className="shareBtn"
       >
         <img
           src={ shareIcon }
           alt="share icon"
         />
       </button>
+
       <button
         type="button"
         onClick={ handleFavorite }
+        className="favoriteBtn"
       >
         {favorite
           ? (<img data-testid="favorite-btn" src={ black } alt="favorite" />)
           : (<img data-testid="favorite-btn" src={ white } alt="not favorite" />)}
 
       </button>
+
       <StartRecipeButton type={ history.location.pathname } />
     </div>
   );
