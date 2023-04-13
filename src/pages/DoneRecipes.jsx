@@ -181,7 +181,7 @@ export default function DoneRecipes() {
                   </div>
                 )}
 
-                {recipe.message && <span>{recipe.message}</span>}
+                {recipe.message && <span className="accert">{recipe.message}</span>}
               </section>
             </div>
           ))}
