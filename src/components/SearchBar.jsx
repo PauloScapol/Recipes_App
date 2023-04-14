@@ -80,7 +80,7 @@ export default function SearchBar({ inputSearch, title }) {
             name="radioButton"
             onClick={ ({ target }) => setSearchType(target.id) }
           />
-          <span>Ingredient</span>
+          Ingredient
         </label>
         <label htmlFor="nameSearch" className="searchBar_label">
           <input
@@ -90,7 +90,7 @@ export default function SearchBar({ inputSearch, title }) {
             name="radioButton"
             onClick={ ({ target }) => setSearchType(target.id) }
           />
-          <span>Name</span>
+          Name
         </label>
         <label htmlFor="firstLetterSearch" className="searchBar_label">
           <input
@@ -100,7 +100,7 @@ export default function SearchBar({ inputSearch, title }) {
             name="radioButton"
             onClick={ ({ target }) => setSearchType(target.id) }
           />
-          <span>First Letter</span>
+          First Letter
         </label>
       </div>
       <button

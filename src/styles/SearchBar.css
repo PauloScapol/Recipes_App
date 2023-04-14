@@ -19,7 +19,8 @@
   width: 100%;
 }
 
-.searchBar_label, .searchBar_label span {
+.searchBar_label {
+  gap: 5px;
   margin: 0 5px;
 }
 
