@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
@@ -38,7 +38,7 @@ export default function DoneRecipes() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <div>
         <Header title="Done Recipes" showSearchIcon={ false } />
         <MenuAlls filter={ handleFilterClick } />
@@ -146,6 +146,6 @@ export default function DoneRecipes() {
         </div>
       </div>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }

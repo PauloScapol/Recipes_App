@@ -25,20 +25,23 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  margin: 0 25px;
+  margin: 0 15px;
+  overflow: hidden;
+  width: 120px;
 }
 
 .name-food {
   color: #1a1b1c;
   font-family: Epilogue , sans-serif;
-  font-size: 15px;
+  font-size: 80%;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .done-date {
   color: #1a1b1c;
   font-family: Epilogue , sans-serif;
-  font-size: 15px;
+  font-size: 80%;
   font-weight: 500;
 }
 

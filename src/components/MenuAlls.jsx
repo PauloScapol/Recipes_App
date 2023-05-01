@@ -19,7 +19,7 @@ export default function MenuAlls({ filter }) {
       </button>
       <button
         data-testid="filter-by-meal-btn"
-        onClick={ () => filter('meals') }
+        onClick={ () => filter('meal') }
         className="buttton-reset-favorite"
       >
         <img
@@ -29,7 +29,7 @@ export default function MenuAlls({ filter }) {
       </button>
       <button
         data-testid="filter-by-drink-btn"
-        onClick={ () => filter('drinks') }
+        onClick={ () => filter('drink') }
         className="buttton-reset-favorite"
       >
         <img
