@@ -5,6 +5,10 @@ Este projeto foi desenvolvido durante o período de Curso da Trybe 🚀
 O projeto tem por objetivo a avaliação e prática dos conhecimentos adquiridos na Trybe, visando o cumprimento do requisitos solicitados.
 
 :busts_in_silhouette: Projeto desenvolvido em um squad de 5 integrantes.
+- [Lucas Oliveira](https://github.com/LucasSilvaO)
+- [Bruna Gimenez](https://github.com/brunagimenez)
+- [Victoria Sales](https://github.com/VicSales28)
+- [Victor Alves](https://github.com/VictorDmgs)
 
 ---
 
