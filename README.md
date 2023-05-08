@@ -60,7 +60,7 @@ Além disso, o layout tem como foco dispositivos móveis :iphone:, em função d
 
 ## Demonstração da aplicação
 
-:construction: EM CONSTRUÇÃO :construction:
+![caption](https://github.com/PauloScapol/GIFS/blob/main/RecipesApp.gif)
 
 ---
 
